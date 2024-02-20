@@ -1,12 +1,11 @@
 # CG 2023/2024
 
-## Group T0xG0y
+## Group T06G09
 
 ## TP 1 Notes
 
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
+- In exercise 1 we observed that we could, by inverting the indexes make an object be visible from both sides and overall we had no difficulties.
+- In exercise 2 it was just the same as myTriangle but with different coordinates and we had no difficulties.
 
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
-
-![Screenshot 1](screenshots/cg-t0xgxx-tp1-n.png)
+![Screenshot 1](screenshots/cg-t06-g09-tp1-1a.png)
+![Screenshot 2](screenshots/cg-t06-g09-tp1-1b.png)
