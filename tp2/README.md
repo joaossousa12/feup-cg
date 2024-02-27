@@ -6,7 +6,8 @@
 
 - In the first exercise we did the tangram atributed to our group, we worked with the figures from last tp overriding the display method on MyTangram and we applied translations, rotations and scalings to the figures in order to make the tangram. We also started using colors for each figure of the tangram. Overall we had no difficulties.
 
-TODO por multmatrix no diamante e dizer isso naas notas
+- We correct the file MyTangram from last exercise to use 'multMatrix' for the diamond instead of translate. In the second exercise we started by creating a cube and we moved the tangram slightly in front of the cube, so it is visible. Then we applied both a translation and a rotation to both the tangram and the cube so they would be parallel to the XZ axis.
+
 
 ![Screenshot 1](screenshots/cg-t06-g09-tp2-1.png)
-
+![Screenshot 2](screenshots/cg-t06-g09-tp2-2.png)
