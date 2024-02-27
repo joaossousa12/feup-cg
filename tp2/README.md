@@ -8,6 +8,8 @@
 
 - We corrected the file MyTangram from last exercise to use 'multMatrix' for the diamond instead of 'translate'. In the second exercise we started by creating a cube and we moved the tangram slightly in front of the cube, so it would be visible. Then we applied both a translation and a rotation to both the tangram and the cube so they would be parallel to the XZ axis. Overall we had no difficulties.
 
+- In exercise 3 we defined a square (MyQuad) and we called it 6 times on the overridden display method on MyUnitCubeQuad defining a cube centered on the origin. Then we swapped from last exercise's unit cube to this exercise's unit cube quad in MyScene. Overall we had no difficulties.
 
 ![Screenshot 1](screenshots/cg-t06-g09-tp2-1.png)
 ![Screenshot 2](screenshots/cg-t06-g09-tp2-2.png)
+![Screenshot 3](screenshots/cg-t06-g09-tp2-3.png)
