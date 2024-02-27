@@ -19,7 +19,7 @@ export class MyTangram extends CGFobject {
         this.triangleBig = new MyTriangleBig(this.scene);
 	}
 	
-	display(){ // cores n visiveis de alguns angulos
+	display(){ 
         this.scene.pushMatrix();
 		this.scene.translate(0, -1, 0);
         this.scene.setDiffuse(0, 255 / 255, 0, 0);
