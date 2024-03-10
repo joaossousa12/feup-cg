@@ -8,6 +8,9 @@
 
 - In the second exercise, we implemented a double-sided prism with configurable slices (sides) and stacks, defining four triangles per side. We also calculated and assigned the normals for each vertex.
 
+- In the third exercise, we refined our prism implementation by eliminating double vertices, ensuring each vertex now has a single normal. Despite this enhancement, we maintained its double-sided nature. The entire process was smooth, and we encountered no challenges.
+
 ![Screenshot 1](screenshots/cg-t06-g09-tp3-1.png)
 ![Screenshot 2](screenshots/cg-t06-g09-tp3-2.png)
 ![Screenshot 3](screenshots/cg-t06-g09-tp3-3.png)
+![Screenshot 3](screenshots/cg-t06-g09-tp3-4.png)
