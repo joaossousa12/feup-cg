@@ -3,7 +3,7 @@ import { CGFobject } from "../lib/CGF.js";
 export class MyTriangleBig extends CGFobject {
     constructor(scene, check){
         super(scene);
-        this.check = check
+        this.check = check;
         this.initBuffers();
     }
 
