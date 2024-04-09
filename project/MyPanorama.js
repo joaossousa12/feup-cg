@@ -4,6 +4,7 @@ import { MySphere } from "./MySphere.js";
  * MyPanorama
  * @constructor
  * @param scene - Reference to MyScene object
+ * @param texture - The texture to be applied to the panorama
  */
 export class MyPanorama extends CGFobject{
     constructor(scene, texture){
