@@ -1,4 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
+import { MyPanorama } from "./MyPanorama.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 
@@ -23,8 +24,15 @@ export class MyScene extends CGFscene {
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
+    
+    this.enableTextures(true);
+    this.texture = new CGFtexture(this, "images/terrain.jpg");
+    this.appearance = new CGFappearance(this);
+    this.appearance.setTexture(this.texture);
+    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.earthTexture = new CGFtexture(this, "images/earth.jpg");
+    this.panoramaTexture = new CGFtexture(this, "images/panorama4.jpg");
 
     this.earthMaterial = new CGFappearance(this); // fixing the globe being kind of green by setting it to white
     this.earthMaterial.setAmbient(1.0, 1.0, 1.0, 1.0); 
@@ -38,19 +46,15 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this,30);
     this.sphereStacks = 16;
     this.sphereSlices = 8;
-    this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices);
+    this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
+    this.panorama = new MyPanorama(this, this.panoramaTexture);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displaySphere = false;
+    this.displayPanorama = true;
     this.scaleFactor = 1;
 
-    this.enableTextures(true);
-
-this.texture = new CGFtexture(this, "images/terrain.jpg");
-this.appearance = new CGFappearance(this);
-this.appearance.setTexture(this.texture);
-this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
   }
   initLights() {
@@ -92,6 +96,10 @@ this.appearance.setTextureWrap('REPEAT', 'REPEAT');
       this.earthMaterial.apply();
       this.sphere.display();
     }
+
+    if(this.displayPanorama){
+      this.panorama.display();
+    }
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
@@ -99,7 +107,7 @@ this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     this.translate(0,-100,0);
     this.scale(400,400,400);
     this.rotate(-Math.PI/2.0,1,0,0);
-    this.plane.display();
+    //this.plane.display();
     this.popMatrix();
 
     // ---- END Primitive drawing section
