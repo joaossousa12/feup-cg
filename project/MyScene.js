@@ -1,5 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
+import { MyRock } from "./objects/MyRock.js";
+import { MyRockSet } from "./objects/MyRockSet.js";
 import { MyPlane } from "./primitives/MyPlane.js";
 import { MySphere } from "./primitives/MySphere.js";
 
@@ -33,6 +35,7 @@ export class MyScene extends CGFscene {
 
     this.earthTexture = new CGFtexture(this, "images/earth.jpg");
     this.panoramaTexture = new CGFtexture(this, "images/panorama4.jpg");
+    this.rockTexture = new CGFtexture(this, "images/rock.jpg");
 
     this.earthMaterial = new CGFappearance(this); // fixing the globe being kind of green by setting it to white
     this.earthMaterial.setAmbient(1.0, 1.0, 1.0, 1.0); 
@@ -41,18 +44,30 @@ export class MyScene extends CGFscene {
     this.earthMaterial.setShininess(10.0);
     this.earthMaterial.setTexture(this.earthTexture);
 
+    this.rockMaterial = new CGFappearance(this);
+    this.rockMaterial.setAmbient(1.0, 1.0, 1.0, 1.0); 
+    this.rockMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0); 
+    this.rockMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
+    this.rockMaterial.setShininess(10);
+    this.rockMaterial.setTexture(this.rockTexture);
+
+
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
     this.sphereStacks = 16;
     this.sphereSlices = 8;
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
+    this.rock = new MyRock(this, 20, 20);
+    this.rockSet = new MyRockSet(this, 0.3, 0.3);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displaySphere = false;
     this.displayPanorama = true;
+    this.displayRock = false;
+    this.displayRockSet = false;
     this.scaleFactor = 1;
 
 
@@ -99,6 +114,16 @@ export class MyScene extends CGFscene {
 
     if(this.displayPanorama){
       this.panorama.display();
+    }
+
+    if(this.displayRockSet){
+      this.rockMaterial.apply();
+      this.rockSet.display();
+    }
+
+    if(this.displayRock){
+      this.rockMaterial.apply();
+      this.rock.display();
     }
     // ---- BEGIN Primitive drawing section
 
