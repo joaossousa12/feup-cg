@@ -1,4 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
+import { MyBee } from "./objects/MyBee.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyRock } from "./objects/MyRock.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
@@ -60,6 +61,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
     this.rock = new MyRock(this, 20, 20);
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
+    this.bee = new MyBee(this);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
 
     //Objects connected to MyInterface
@@ -68,6 +70,7 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
+    this.displayBee = false;
     this.scaleFactor = 1;
 
 
@@ -124,6 +127,10 @@ export class MyScene extends CGFscene {
     if(this.displayRock){
       this.rockMaterial.apply();
       this.rock.display();
+    }
+
+    if(this.displayBee){
+      this.bee.display();
     }
     // ---- BEGIN Primitive drawing section
 
