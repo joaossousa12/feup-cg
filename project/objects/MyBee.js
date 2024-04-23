@@ -41,9 +41,10 @@ export class MyBee extends CGFobject{
         this.eyeMaterial.setDiffuse(0, 0, 0, 1.0);
 
         this.wingMaterial = new CGFappearance(this.scene);
-        this.wingMaterial.setAmbient(251 / 255, 226 / 255, 142 / 255, 0.5);
-        this.wingMaterial.setDiffuse(251 / 255, 226 / 255, 142 / 255, 0.5);
-        this.wingMaterial.setSpecular(0.9, 0.9, 0.9, 0.5);
+        this.wingMaterial.setAmbient(251 / 255, 226 / 255, 142 / 255, 0.2);
+        this.wingMaterial.setDiffuse(251 / 255, 226 / 255, 142 / 255, 0.2);
+        this.wingMaterial.setSpecular(0.9, 0.9, 0.9, 0.2);
+        this.wingMaterial.setEmission(0, 0, 0, 0.2);
     }
 
     display(){
