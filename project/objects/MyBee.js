@@ -16,13 +16,17 @@ export class MyBee extends CGFobject{
         this.wing = new MySphere(this.scene, 16, 8);
         this.leg =  new MyBeeLeg(this.scene);
         this.antenna = new MyBeeLeg(this.scene); // the bee's antennas are using the legs model
+        this.mandible = new MyBeeLeg(this.scene); // the bee's mandibles are using the legs model
         this.initMaterials();
     }
 
     initMaterials(){
         this.abdomenMaterial = new CGFappearance(this.scene);
-        this.abdomenMaterial.setAmbient(231 / 255, 141 / 255, 33 / 255, 1.0);
-        this.abdomenMaterial.setDiffuse(231 / 255, 141 / 255, 33 / 255, 1.0);
+        this.abdomenMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.abdomenMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.abdomenMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.abdomenMaterial.setShininess(10.0);
+        this.abdomenMaterial.loadTexture('images/beePattern.png');
 
         this.thoraxMaterial = new CGFappearance(this.scene);
         this.thoraxMaterial.setAmbient(88 / 255, 57 / 255, 39 / 255, 1.0);
@@ -37,16 +41,17 @@ export class MyBee extends CGFobject{
         this.eyeMaterial.setDiffuse(0, 0, 0, 1.0);
 
         this.wingMaterial = new CGFappearance(this.scene);
-        this.wingMaterial.setAmbient(251 / 255, 226 / 255, 142 / 255, 1.0);
-        this.wingMaterial.setDiffuse(251 / 255, 226 / 255, 142 / 255, 1.0);
+        this.wingMaterial.setAmbient(251 / 255, 226 / 255, 142 / 255, 0.5);
+        this.wingMaterial.setDiffuse(251 / 255, 226 / 255, 142 / 255, 0.5);
+        this.wingMaterial.setSpecular(0.9, 0.9, 0.9, 0.5);
     }
 
     display(){
         var thoraxAngle = Math.PI / 8;
 
         this.scene.pushMatrix();
-        this.scene.rotate(thoraxAngle, 1, 0, 0);
-        this.scene.scale(0.5, 0.5, 1);
+        this.scene.rotate(thoraxAngle * 5, 1, 0, 0);
+        this.scene.scale(0.5, 1, 0.5);
         this.abdomenMaterial.apply();
         this.abdomen.display();
         this.scene.popMatrix();
@@ -81,42 +86,6 @@ export class MyBee extends CGFobject{
         this.eyeMaterial.apply();
         this.eye.display();
         this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(-0.4, 0.7, -0.57);
-        this.scene.rotate(thoraxAngle * 3.5, 1, 0, 0);
-        this.scene.rotate(Math.PI / 8, 0, 0, 1);
-        this.scene.scale(0, 0.97, 0.25);
-        this.wingMaterial.apply();
-        this.wing.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0.4, 0.7, -0.57);
-        this.scene.rotate(thoraxAngle * 3.5, 1, 0, 0);
-        this.scene.rotate(-Math.PI / 8, 0, 0, 1);
-        this.scene.scale(0, 0.97, 0.25);
-        this.wingMaterial.apply();
-        this.wing.display();
-        this.scene.popMatrix();
-
-        // Other wing representations below but the best was the one above
-        // this.scene.pushMatrix();
-        // this.scene.translate(0.4, 1, -0.87);
-        // this.scene.rotate(thoraxAngle * 2, 1, 0, 0);
-        // this.scene.rotate(-Math.PI / 8, 0, 0, 1);
-        // this.scene.scale(0, 0.97, 0.25);
-        // this.wingMaterial.apply();
-        // this.wing.display();
-        // this.scene.popMatrix();
-
-        // this.scene.pushMatrix();
-        // this.scene.translate(0.3,0.4,0);
-        // this.scene.rotate(-thoraxAngle * 2, 0, 0, 1);
-        // this.scene.scale(0, 0.97, 0.25);
-        // this.wingMaterial.apply();
-        // this.wing.display();
-        // this.scene.popMatrix();
         
         this.scene.pushMatrix();
         this.scene.translate(0.4, 0, 0);
@@ -168,5 +137,61 @@ export class MyBee extends CGFobject{
         this.scene.scale(-1, -1, 1);
         this.antenna.display();
         this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.1, 0.21, -1.9);
+        this.scene.rotate(Math.PI / 3, 1, 0, 0);
+        this.scene.scale(0.2, 0.2, 0.2);
+        this.mandible.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.1, 0.21, -1.9);
+        this.scene.rotate(Math.PI / 3, 1, 0, 0);
+        this.scene.scale(0.2, 0.2, 0.2);
+        this.scene.scale(-1, 1, 1);
+        this.mandible.display();
+        this.scene.popMatrix();
+
+        this.scene.gl.blendFunc(this.scene.gl.SRC_ALPHA, this.scene.gl.ONE_MINUS_SRC_ALPHA);
+        this.scene.gl.enable(this.scene.gl.BLEND);
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.4, 0.7, -0.57);
+        this.scene.rotate(thoraxAngle * 3.5, 1, 0, 0);
+        this.scene.rotate(Math.PI / 8, 0, 0, 1);
+        this.scene.scale(0, 0.97, 0.25);
+        this.wingMaterial.apply();
+        this.wing.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.4, 0.7, -0.57);
+        this.scene.rotate(thoraxAngle * 3.5, 1, 0, 0);
+        this.scene.rotate(-Math.PI / 8, 0, 0, 1);
+        this.scene.scale(0, 0.97, 0.25);
+        this.wingMaterial.apply();
+        this.wing.display();
+        this.scene.popMatrix();
+
+        this.scene.gl.disable(this.scene.gl.BLEND);
+
+        // Other wing representations below but the best was the one above
+        // this.scene.pushMatrix();
+        // this.scene.translate(0.4, 1, -0.87);
+        // this.scene.rotate(thoraxAngle * 2, 1, 0, 0);
+        // this.scene.rotate(-Math.PI / 8, 0, 0, 1);
+        // this.scene.scale(0, 0.97, 0.25);
+        // this.wingMaterial.apply();
+        // this.wing.display();
+        // this.scene.popMatrix();
+
+        // this.scene.pushMatrix();
+        // this.scene.translate(0.3,0.4,0);
+        // this.scene.rotate(-thoraxAngle * 2, 0, 0, 1);
+        // this.scene.scale(0, 0.97, 0.25);
+        // this.wingMaterial.apply();
+        // this.wing.display();
+        // this.scene.popMatrix();
     }
 }
