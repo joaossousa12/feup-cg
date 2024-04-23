@@ -1,6 +1,7 @@
 import { CGFappearance, CGFobject } from "../../lib/CGF.js";
 import { MySphere } from "../primitives/MySphere.js";
-import { MyBeeLeg } from "./MyBeeLeg.js";
+import { MyBeeLeg } from "../components/MyBeeLeg.js";
+
 /**
  * MyBee
  * @constructor
