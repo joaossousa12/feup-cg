@@ -5,63 +5,55 @@ import { CGFobject } from "../../lib/CGF.js";
  * @param scene - Reference to MyScene object
  */
 export class MyCylinder extends CGFobject {
-    constructor(scene, slices, stacks){
+    constructor(scene, slices, stacks) {
         super(scene);
-		this.slices = slices;
-		this.stacks = stacks;
+        this.slices = slices;
+        this.stacks = stacks;
         this.initBuffers();
     }
-    
-    initBuffers() {
 
+    initBuffers() {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
-        
-        for (var i = 0 ; i <= this.stacks ; i += 1) {
-            this.vertices.push(1, 0, i / this.stacks);
-            this.normals.push(1, 0, 0);
-        }
 
-        for (var stackIndex = 1 ; stackIndex <= this.slices ; stackIndex++) {
+        for (var i = 0; i <= this.stacks; i++) {
+            for (var j = 0; j <= this.slices; j++) {
+                var angle = 2 * Math.PI * j / this.slices;
+                var x = Math.cos(angle);
+                var y = Math.sin(angle);
 
-            var x = Math.cos(2 * Math.PI * stackIndex / this.slices);
-            var y = Math.sin(2 * Math.PI * stackIndex / this.slices);
-
-            var vector_size = Math.sqrt(x * x + y * y);
-            if (stackIndex != this.slices) {    
-                this.vertices.push(x, y, 0);
-                this.normals.push(x / vector_size, y / vector_size, 0);
-            }
-
-            for (var i = 1 ; i <= this.stacks ; i++) {
+                this.vertices.push(x, y, i / this.stacks);
+                this.normals.push(x, y, 0);
                 
-                if (stackIndex != this.slices) {
-
-                    var z = i / this.stacks;
-                    this.vertices.push(x, y, z);
-                    this.normals.push(x / vector_size, y / vector_size, 0);
-                    
-                    var points = this.vertices.length / 3;
-                    var indexC = points - 2;
-                    var indexD = points - 1;
-                    var indexB = indexD - (this.stacks + 1);
-                    var indexA = indexB - 1;
-                    this.indices.push(indexA, indexC, indexD, indexA, indexD, indexB);
-                    this.indices.push(indexA, indexD, indexC, indexA, indexB, indexD);
-
-                } else {
-
-                    var points = this.vertices.length / 3;
-                
-                    var indexC = i - 1;
-                    var indexD = i;
-                    var indexB = points - this.stacks - 1 + i;
-                    var indexA = indexB - 1;
-                    this.indices.push(indexA, indexC, indexD, indexA, indexD, indexB);
-                    this.indices.push(indexA, indexD, indexC, indexA, indexB, indexD);
+                if (i < this.stacks && j < this.slices) {
+                    var current = i * (this.slices + 1) + j;
+                    var next = current + (this.slices + 1);
+                    this.indices.push(current, next + 1, next, current, current + 1, next + 1);
+                    this.indices.push(current, next, next + 1, current, next + 1, current + 1);
                 }
             }
+        }
+
+        this.vertices.push(0, 0, 0);
+        this.normals.push(0, 0, -1);
+        var centerBottomIndex = this.vertices.length / 3 - 1;
+
+        this.vertices.push(0, 0, 1);
+        this.normals.push(0, 0, 1);
+        var centerTopIndex = this.vertices.length / 3 - 1;
+
+        for (var j = 0; j < this.slices; j++) {
+            var next = (j + 1) % this.slices;
+            this.indices.push(centerBottomIndex, j, next);
+            this.indices.push(centerBottomIndex, next, j);
+        }
+
+        var offset = this.stacks * (this.slices + 1);
+        for (var j = 0; j < this.slices; j++) {
+            var next = (j + 1) % this.slices;
+            this.indices.push(centerTopIndex, offset + next, offset + j);
+            this.indices.push(centerTopIndex, offset + j, offset + next);
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;

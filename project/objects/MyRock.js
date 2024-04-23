@@ -39,6 +39,10 @@ export class MyRock extends CGFobject {
                 let z = sinPhi * sinTheta;
     
                 let deformation = 1.0 + 0.3 * Math.random();
+
+                if(slice == 0 || slice == this.slices){ // fix part of the rock that could be seen through otherwise
+                    deformation = 1.2;
+                }
     
                 x *= this.radius * deformation;
                 y *= this.radius * deformation;
