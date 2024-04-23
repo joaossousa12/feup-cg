@@ -70,7 +70,7 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
-    this.displayBee = true;
+    this.displayBee = false;
     this.scaleFactor = 1;
 
 
