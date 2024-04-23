@@ -8,7 +8,7 @@ import { MyBeeLeg } from "../components/MyBeeLeg.js";
  * @param scene - Reference to MyScene object
  */
 export class MyBee extends CGFobject{
-    constructor(scene){
+    constructor(scene, x, y, z){
         super(scene);
         this.abdomen = new MySphere(this.scene, 16, 8);
         this.thorax = new MySphere(this.scene, 16, 8);
@@ -18,6 +18,10 @@ export class MyBee extends CGFobject{
         this.leg =  new MyBeeLeg(this.scene);
         this.antenna = new MyBeeLeg(this.scene); // the bee's antennas are using the legs model
         this.mandible = new MyBeeLeg(this.scene); // the bee's mandibles are using the legs model
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.wingAngle = Math.PI / 8;
         this.initMaterials();
     }
 
@@ -49,6 +53,13 @@ export class MyBee extends CGFobject{
     }
 
     display(){
+        this.scene.pushMatrix();
+        this.scene.translate(this.x, this.y, this.z);
+        this.display2();
+        this.scene.popMatrix();
+    }
+
+    display2(){
         var thoraxAngle = Math.PI / 8;
 
         this.scene.pushMatrix();
@@ -161,7 +172,7 @@ export class MyBee extends CGFobject{
         this.scene.pushMatrix();
         this.scene.translate(-0.4, 0.7, -0.57);
         this.scene.rotate(thoraxAngle * 3.5, 1, 0, 0);
-        this.scene.rotate(Math.PI / 8, 0, 0, 1);
+        this.scene.rotate(this.wingAngle, 0, 0, 1);
         this.scene.scale(0, 0.97, 0.25);
         this.wingMaterial.apply();
         this.wing.display();
@@ -170,7 +181,7 @@ export class MyBee extends CGFobject{
         this.scene.pushMatrix();
         this.scene.translate(0.4, 0.7, -0.57);
         this.scene.rotate(thoraxAngle * 3.5, 1, 0, 0);
-        this.scene.rotate(-Math.PI / 8, 0, 0, 1);
+        this.scene.rotate(-this.wingAngle, 0, 0, 1);
         this.scene.scale(0, 0.97, 0.25);
         this.wingMaterial.apply();
         this.wing.display();
@@ -195,5 +206,22 @@ export class MyBee extends CGFobject{
         // this.wingMaterial.apply();
         // this.wing.display();
         // this.scene.popMatrix();
+    }
+
+    update(t){
+        this.time = t;
+
+        let frequencyHeight = 2 * Math.PI / 1500;
+        let amplitude = 1;
+
+        this.y = amplitude * Math.sin(frequencyHeight * t);
+
+        let frequencyWings = 2 * Math.PI / 500;
+
+        // max wing angle of Math.PI / 6 and min of Math.PI / 8
+        let wingAmplitude = (Math.PI / 6 - Math.PI / 8) / 2;
+        let wingOffset = (Math.PI / 6 + Math.PI / 8) / 2;
+
+        this.wingAngle = wingAmplitude * Math.sin(frequencyWings * t) + wingOffset;
     }
 }

@@ -61,7 +61,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
     this.rock = new MyRock(this, 20, 20);
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
-    this.bee = new MyBee(this);
+    this.bee = new MyBee(this, 0, 0, 0);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
 
     //Objects connected to MyInterface
@@ -70,10 +70,10 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
-    this.displayBee = false;
+    this.displayBee = true;
     this.scaleFactor = 1;
 
-
+    this.setUpdatePeriod(1000/60);
   }
   initLights() {
     this.lights[0].setPosition(15, 0, 5, 1);
@@ -130,7 +130,10 @@ export class MyScene extends CGFscene {
     }
 
     if(this.displayBee){
+      this.pushMatrix();
+      this.translate(0, 3, 0);
       this.bee.display();
+      this.popMatrix();
     }
     // ---- BEGIN Primitive drawing section
 
@@ -143,5 +146,9 @@ export class MyScene extends CGFscene {
     this.popMatrix();
 
     // ---- END Primitive drawing section
+  }
+
+  update(t){
+    this.bee.update(t);
   }
 }
