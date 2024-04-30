@@ -29,4 +29,4 @@
 ![Screenshot 4](screenshots/project-t06g09-4.png)
 
 ### Topic 4.3
-<video src="screenshots/project-t06g09-5.mov" width="600" height="400" controls></video>
+![Screenshot 5](screenshots/project-t06g09-5.png)
