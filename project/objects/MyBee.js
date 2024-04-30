@@ -18,10 +18,15 @@ export class MyBee extends CGFobject{
         this.leg =  new MyBeeLeg(this.scene);
         this.antenna = new MyBeeLeg(this.scene); // the bee's antennas are using the legs model
         this.mandible = new MyBeeLeg(this.scene); // the bee's mandibles are using the legs model
+        
         this.x = x;
         this.y = y;
         this.z = z;
         this.wingAngle = Math.PI / 8;
+        this.orientation = 0;
+        this.velocity = 0;
+        this.initial = {x: x, y: y, z: z};
+
         this.initMaterials();
     }
 
@@ -55,6 +60,7 @@ export class MyBee extends CGFobject{
     display(){
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
+        this.scene.rotate(this.orientation, 0, 1, 0);
         this.display2();
         this.scene.popMatrix();
     }
@@ -209,12 +215,21 @@ export class MyBee extends CGFobject{
     }
 
     update(t){
+        let delta_t = t - this.time;
+       
+        if(this.time == undefined){
+            this.time = t;
+            delta_t = 0;
+        }
+
         this.time = t;
 
         let frequencyHeight = 2 * Math.PI / 1500;
         let amplitude = 1;
 
-        this.y = amplitude * Math.sin(frequencyHeight * t);
+        this.y = amplitude * Math.sin(frequencyHeight * t);   
+        this.x += (this.velocity * Math.sin(this.orientation) * delta_t) / 500;
+        this.z += (this.velocity * Math.cos(this.orientation) * delta_t) / 500;
 
         let frequencyWings = 2 * Math.PI / 500;
 
@@ -223,5 +238,23 @@ export class MyBee extends CGFobject{
         let wingOffset = (Math.PI / 6 + Math.PI / 8) / 2;
 
         this.wingAngle = wingAmplitude * Math.sin(frequencyWings * t) + wingOffset;
+    }
+
+    turn(v){
+        this.orientation += v * this.scene.beeSpeed;
+    }
+
+    accelerate(v) { 
+        let accSpeed = Math.sqrt(this.velocity ** 2) + (v * this.scene.beeSpeed);
+        accSpeed = Math.max(0, accSpeed);
+        this.velocity = -accSpeed;
+    }
+
+    reset() {
+        this.x = this.initial.x;
+        this.y = this.initial.y;
+        this.z = this.initial.z;
+        this.orientation = 0;
+        this.velocity = 0;
     }
 }

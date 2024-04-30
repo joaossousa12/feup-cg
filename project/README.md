@@ -12,6 +12,8 @@
 
 - For the 4.1 topic we did all that was asked, the two challenging parts were to apply a bee pattern texture to the abdomen of the bee because we needed to change the way we did the abdomen so the poles of the sphere where on the horizontal and not on the vertical, and the other challenging part was to make the wings "semi-transparent" because we were using alpha values too high and when we lowered we achieved what we wanted.
 
+- For the 4.3 topic we did all that was asked. We had some difficulties along the completion of this task such as when there is no input acceleration but there is speed and when we turned the bee it continued to head on the last orientation and not the new one but we could fix this and other minor problems.
+
 ### Topic 1.1
 ![Screenshot 1.1](screenshots/project-t06g09-1.1.png)
 ### Topic 1.2
@@ -25,3 +27,6 @@
 
 ### Topic 4.1
 ![Screenshot 4](screenshots/project-t06g09-4.png)
+
+### Topic 4.3
+<video src="screenshots/project-t06g09-5.mov" width="600" height="400" controls></video>

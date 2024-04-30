@@ -72,6 +72,8 @@ export class MyScene extends CGFscene {
     this.displayRockSet = false;
     this.displayBee = true;
     this.scaleFactor = 1;
+    this.beeSpeed = 1;
+    this.beeScale = 1;
 
     this.setUpdatePeriod(1000/60);
   }
@@ -132,6 +134,7 @@ export class MyScene extends CGFscene {
     if(this.displayBee){
       this.pushMatrix();
       this.translate(0, 3, 0);
+      this.scale(this.beeScale, this.beeScale, this.beeScale);
       this.bee.display();
       this.popMatrix();
     }
@@ -150,5 +153,45 @@ export class MyScene extends CGFscene {
 
   update(t){
     this.bee.update(t);
+
+    this.checkKeys();
+  }
+
+  checkKeys(){
+    var text="Keys pressed: ";
+    var keysPressed=false;
+
+    if(this.gui.isKeyPressed("KeyW")){
+      text+=" W ";
+      this.bee.accelerate(1);
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyS")){
+      text+=" S ";
+      this.bee.accelerate(-1);
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyR")){
+      text+=" R ";
+      keysPressed=true;
+      this.bee.reset();
+    }
+
+    if(this.gui.isKeyPressed("KeyA")){
+      text+=" A ";
+      this.bee.turn(-Math.PI/16);
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyD")){
+      text+=" D ";
+      this.bee.turn(Math.PI/16);
+      keysPressed=true;
+    }
+
+    if(keysPressed)
+      console.log(text);
   }
 }
