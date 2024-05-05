@@ -1,10 +1,10 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
-import { MyBee } from "./objects/MyBee.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
-import { MyRock } from "./objects/MyRock.js";
-import { MyRockSet } from "./objects/MyRockSet.js";
+import { MyPetal } from "./primitives/MyPetal.js";
+import { MyFlower } from "./objects/MyFlower.js";
 import { MyPlane } from "./primitives/MyPlane.js";
 import { MySphere } from "./primitives/MySphere.js";
+import { MyGarden } from "./objects/MyGarden.js";
 
 /**
  * MyScene
@@ -36,7 +36,6 @@ export class MyScene extends CGFscene {
 
     this.earthTexture = new CGFtexture(this, "images/earth.jpg");
     this.panoramaTexture = new CGFtexture(this, "images/panorama4.jpg");
-    this.rockTexture = new CGFtexture(this, "images/rock.jpg");
 
     this.earthMaterial = new CGFappearance(this); // fixing the globe being kind of green by setting it to white
     this.earthMaterial.setAmbient(1.0, 1.0, 1.0, 1.0); 
@@ -45,37 +44,25 @@ export class MyScene extends CGFscene {
     this.earthMaterial.setShininess(10.0);
     this.earthMaterial.setTexture(this.earthTexture);
 
-    this.rockMaterial = new CGFappearance(this);
-    this.rockMaterial.setAmbient(1.0, 1.0, 1.0, 1.0); 
-    this.rockMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0); 
-    this.rockMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
-    this.rockMaterial.setShininess(10);
-    this.rockMaterial.setTexture(this.rockTexture);
-
-
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
     this.sphereStacks = 16;
     this.sphereSlices = 8;
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
-    this.rock = new MyRock(this, 20, 20);
-    this.rockSet = new MyRockSet(this, 0.3, 0.3);
-    this.bee = new MyBee(this, 0, 0, 0);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
+    //this.temp = new MyFlower(this, 0.5, 1);
+    this.temp = new MyGarden(this, 5, 6);
+    //this.temp = new MyPetal(this, 0.5, 1);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displaySphere = false;
     this.displayPanorama = true;
-    this.displayRock = false;
-    this.displayRockSet = false;
-    this.displayBee = true;
+    this.dtemp = true;
     this.scaleFactor = 1;
-    this.beeSpeed = 1;
-    this.beeScale = 1;
 
-    this.setUpdatePeriod(1000/60);
+
   }
   initLights() {
     this.lights[0].setPosition(15, 0, 5, 1);
@@ -121,23 +108,11 @@ export class MyScene extends CGFscene {
       this.panorama.display();
     }
 
-    if(this.displayRockSet){
-      this.rockMaterial.apply();
-      this.rockSet.display();
+    if(this.dtemp){
+      this.temp.display();
     }
 
-    if(this.displayRock){
-      this.rockMaterial.apply();
-      this.rock.display();
-    }
-
-    if(this.displayBee){
-      this.pushMatrix();
-      this.translate(0, 3, 0);
-      this.scale(this.beeScale, this.beeScale, this.beeScale);
-      this.bee.display();
-      this.popMatrix();
-    }
+    this.temp.enableNormalViz();
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
@@ -149,49 +124,5 @@ export class MyScene extends CGFscene {
     this.popMatrix();
 
     // ---- END Primitive drawing section
-  }
-
-  update(t){
-    this.bee.update(t);
-
-    this.checkKeys();
-  }
-
-  checkKeys(){
-    var text="Keys pressed: ";
-    var keysPressed=false;
-
-    if(this.gui.isKeyPressed("KeyW")){
-      text+=" W ";
-      this.bee.accelerate(1);
-      keysPressed=true;
-    }
-
-    if(this.gui.isKeyPressed("KeyS")){
-      text+=" S ";
-      this.bee.accelerate(-1);
-      keysPressed=true;
-    }
-
-    if(this.gui.isKeyPressed("KeyR")){
-      text+=" R ";
-      keysPressed=true;
-      this.bee.reset();
-    }
-
-    if(this.gui.isKeyPressed("KeyA")){
-      text+=" A ";
-      this.bee.turn(-Math.PI/16);
-      keysPressed=true;
-    }
-
-    if(this.gui.isKeyPressed("KeyD")){
-      text+=" D ";
-      this.bee.turn(Math.PI/16);
-      keysPressed=true;
-    }
-
-    if(keysPressed)
-      console.log(text);
   }
 }
