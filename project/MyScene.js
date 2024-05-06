@@ -1,5 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyBee } from "./objects/MyBee.js";
+import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyRock } from "./objects/MyRock.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
@@ -63,6 +64,7 @@ export class MyScene extends CGFscene {
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
     this.bee = new MyBee(this, 0, 0, 0);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
+    this.garden = new MyGarden(this, 5, 6);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -70,7 +72,8 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
-    this.displayBee = true;
+    this.displayBee = false;
+    this.displayGarden = true;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
     this.beeScale = 1;
@@ -129,6 +132,10 @@ export class MyScene extends CGFscene {
     if(this.displayRock){
       this.rockMaterial.apply();
       this.rock.display();
+    }
+
+    if(this.displayGarden){
+      this.garden.display();
     }
 
     if(this.displayBee){
