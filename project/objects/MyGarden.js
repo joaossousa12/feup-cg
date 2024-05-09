@@ -1,5 +1,6 @@
 import { CGFappearance, CGFobject } from "../../lib/CGF.js";
 import { MyFlower } from "./MyFlower.js";
+import { MyPollen } from "./MyPollen.js";
 /**
  * MyGarden
  * @constructor
@@ -10,7 +11,9 @@ export class MyGarden extends CGFobject {
         super(scene);
         this.xSize = xSize;
         this.ySize = ySize;
+        this.pollen = new MyPollen(this.scene);
         this.flowers = this.initFlowers();
+        this.pollenAngles = this.initPollenAngles();
     }
 
 
@@ -29,7 +32,25 @@ export class MyGarden extends CGFobject {
             this.scene.translate(x, 0, z);
             this.flowers[i].display();
             this.scene.popMatrix();
+
+            const steamHigh = this.flowers[i].steamHigh;
+            this.scene.pushMatrix();
+            this.scene.translate(x - 0.3, steamHigh + this.flowers[i].steamRadius * 2 + 0.5, z);
+            this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
+            this.scene.scale(0.5, 0.5, 0.5);    
+            this.pollen.display();
+            this.scene.popMatrix();
         }
+    }
+
+    initPollenAngles(){
+        let pollenAngles = [];
+        for (let i = 0; i < this.xSize; i++) {
+            for (let j = 0; j < this.ySize; j++) {
+                pollenAngles.push(Math.random() * -Math.PI/2);
+            }
+        }
+        return pollenAngles;
     }
 
     initFlowers() {

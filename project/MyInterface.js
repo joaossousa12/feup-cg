@@ -28,10 +28,10 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayRockSet').name('Display RockSet');
         this.gui.add(this.scene, 'displayRock').name('Display Rock');
         this.gui.add(this.scene, 'displayBee').name('Display Bee');
+        this.gui.add(this.scene, 'displayGarden').name('Display Garden');
         this.gui.add(this.scene.camera, 'fov', 0, 3).name('FOV');
         this.gui.add(this.scene, 'beeSpeed', 0.1, 3).name('Bee Speed');
         this.gui.add(this.scene, 'beeScale', 0.5, 3).name('Bee Scale');
-        this.gui.add(this.scene, 'displayGarden').name('Display Garden');
 
         this.initKeys();
         return true;
