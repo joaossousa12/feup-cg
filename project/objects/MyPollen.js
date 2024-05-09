@@ -1,6 +1,12 @@
 import { CGFappearance, CGFobject } from "../../lib/CGF.js";
 import { MySphere } from "../primitives/MySphere.js";
 
+/**
+ * MyPollen
+ * @constructor
+ * @param scene - Reference to MyScene object
+ */
+
 export class MyPollen extends CGFobject{
     constructor(scene){
         super(scene);
@@ -20,7 +26,7 @@ export class MyPollen extends CGFobject{
     display(){
         this.scene.pushMatrix();
         
-        
+
         this.scene.scale(0.5, 0.5, 0.5);
         this.display2();
 
