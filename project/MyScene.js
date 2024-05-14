@@ -71,11 +71,11 @@ export class MyScene extends CGFscene {
     this.hive = new MyHive(this);
 
     //Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayRock = false;
-    this.displayRockSet = false;
+    this.displayRockSet = true;
     this.displayBee = false;
     this.displayGarden = false;
     this.scaleFactor = 1;
@@ -89,27 +89,6 @@ export class MyScene extends CGFscene {
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
-
-
-    // this.lights[1].setPosition(0, 3, 20, 1);
-    // this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    // this.lights[1].enable();
-    // this.lights[1].update();
-
-    // this.lights[2].setPosition(0, 20, 0, 1);
-    // this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    // this.lights[2].enable();
-    // this.lights[2].update();
-
-    // this.lights[3].setPosition(-20, 3, 0, 1);
-    // this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    // this.lights[3].enable();
-    // this.lights[3].update();
-
-    // this.lights[4].setPosition(20, 3, 0, 1);
-    // this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    // this.lights[4].enable();
-    // this.lights[4].update();
   }
   initCameras() {
     this.camera = new CGFcamera(
@@ -157,7 +136,7 @@ export class MyScene extends CGFscene {
       this.popMatrix();
 
       this.pushMatrix();
-      this.translate(0, 6, 0);
+      this.translate(0, 4.3, 0);
       this.hive.display();
       this.popMatrix();
 

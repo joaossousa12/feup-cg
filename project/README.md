@@ -14,7 +14,7 @@
 
 - For the 4.3 topic we did all that was asked. We had some difficulties along the completion of this task such as when there is no input acceleration but there is speed and when we turned the bee it continued to head on the last orientation and not the new one but we could fix this and other minor problems.
 
-- For topic 5 we did the pollen and a modern beehive shaped like a box. We had a problem with lighting but we fixed it changing the normals of the quad primitive.
+- For topic 5 we did the pollen and a modern beehive shaped like a box. We had a problem with lighting but we fixed it changing the normals of the quad primitive. This topic asked to put the hive above the rock pile but since we have a singular rock on top we overlapped the hive with it making the hive stand on a base of 4 rocks to be more realistic. Additionally to the box shaped hive we added a cover and 2 handles to the hive.
 
 ### Topic 1.1
 ![Screenshot 1.1](screenshots/project-t06g09-1.1.png)

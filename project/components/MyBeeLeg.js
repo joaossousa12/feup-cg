@@ -2,7 +2,7 @@ import { CGFappearance, CGFobject } from "../../lib/CGF.js";
 import { MySphere } from "../primitives/MySphere.js";
 import { MyCylinder } from "../primitives/MyCylinder.js";
 /**
- * MyBee
+ * MyBeeLeg
  * @constructor
  * @param scene - Reference to MyScene object
  */

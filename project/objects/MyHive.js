@@ -1,4 +1,5 @@
 import { CGFappearance, CGFobject } from "../../lib/CGF.js";
+import { MyHiveHandle } from "../components/MyHiveHandle.js";
 import { MyQuad } from "../primitives/MyQuad.js";
 import { MySphere } from "../primitives/MySphere.js";
 
@@ -13,6 +14,7 @@ export class MyHive extends CGFobject {
         super(scene);
         this.sphere = new MySphere(this.scene, 16, 8);
         this.quad = new MyQuad(this.scene);
+        this.hiveHandle = new MyHiveHandle(this.scene);
         this.initMaterials();
     }
 
@@ -90,6 +92,31 @@ export class MyHive extends CGFobject {
         this.scene.scale(7.3, 1, 5.3);
         this.hiveMaterial.apply();
         this.quad.display();
+        this.scene.popMatrix();
+
+        // hive cover
+        this.scene.pushMatrix();
+        this.scene.translate(0, 5.56, -1.53);
+        this.scene.rotate(-Math.PI / 3, 1, 0, 0);
+        this.scene.scale(8, 1, 6);
+        this.woodMaterial.apply();
+        this.quad.display();
+        this.scene.popMatrix();
+
+        // hive handles
+        this.scene.pushMatrix();
+        this.scene.translate(4, 1.5, 1);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.scale(2, 2, 2);
+        this.hiveHandle.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-4, 1.5, 1);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.rotate(Math.PI, 1, 0, 0);
+        this.scene.scale(2, 2, 2);
+        this.hiveHandle.display();
         this.scene.popMatrix();
     }
 }
