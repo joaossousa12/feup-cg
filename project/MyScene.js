@@ -64,7 +64,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
     this.rock = new MyRock(this, 20, 20);
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
-    this.bee = new MyBee(this, 0, 0, 0);
+    this.bee = new MyBee(this, 0, 7, 0);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
     this.garden = new MyGarden(this, 5, 6);
     this.pollen = new MyPollen(this);

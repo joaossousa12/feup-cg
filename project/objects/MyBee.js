@@ -227,7 +227,7 @@ export class MyBee extends CGFobject{
         let frequencyHeight = 2 * Math.PI / 1500;
         let amplitude = 1;
 
-        this.y = amplitude * Math.sin(frequencyHeight * t);   
+        this.y = this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
         this.x += (this.velocity * Math.sin(this.orientation) * delta_t) / 500;
         this.z += (this.velocity * Math.cos(this.orientation) * delta_t) / 500;
 
