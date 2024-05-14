@@ -217,7 +217,7 @@ export class MyScene extends CGFscene {
 
     if(this.gui.isKeyPressed("KeyF")){
       text+=" F ";
-
+      this.bee.descend(this.garden.flowersX, this.garden.flowersY, this.garden.flowersZ);
       keysPressed=true;
     }
 

@@ -25,6 +25,15 @@ export class MyBee extends CGFobject{
         this.wingAngle = Math.PI / 8;
         this.orientation = 0;
         this.velocity = 0;
+        this.flagvelocity = 0;
+        this.descending = false;
+        this.help = 1;
+        this.stationary = false;
+        this.flowersXX = [];
+        this.flowersYY = [];
+        this.flowersZZ = [];
+        this.beePosChanged = false;
+        this.objectBelowY = -2;
         this.initial = {x: x, y: y, z: z};
 
         this.initMaterials();
@@ -194,24 +203,6 @@ export class MyBee extends CGFobject{
         this.scene.popMatrix();
 
         this.scene.gl.disable(this.scene.gl.BLEND);
-
-        // Other wing representations below but the best was the one above
-        // this.scene.pushMatrix();
-        // this.scene.translate(0.4, 1, -0.87);
-        // this.scene.rotate(thoraxAngle * 2, 1, 0, 0);
-        // this.scene.rotate(-Math.PI / 8, 0, 0, 1);
-        // this.scene.scale(0, 0.97, 0.25);
-        // this.wingMaterial.apply();
-        // this.wing.display();
-        // this.scene.popMatrix();
-
-        // this.scene.pushMatrix();
-        // this.scene.translate(0.3,0.4,0);
-        // this.scene.rotate(-thoraxAngle * 2, 0, 0, 1);
-        // this.scene.scale(0, 0.97, 0.25);
-        // this.wingMaterial.apply();
-        // this.wing.display();
-        // this.scene.popMatrix();
     }
 
     update(t){
@@ -226,8 +217,19 @@ export class MyBee extends CGFobject{
 
         let frequencyHeight = 2 * Math.PI / 1500;
         let amplitude = 1;
+        
+        if(!this.descending && !this.stationary)
+            this.y = this.help * this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
 
-        this.y = this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
+        else if(this.descending && this.y >= this.objectBelowY) // the floor for the bee absolute position is around -2
+            this.y -= 0.05;
+        
+        else{
+            this.descending = false;
+            this.help = 0;
+            this.stationary = true;
+        }
+
         this.x += (this.velocity * Math.sin(this.orientation) * delta_t) / 500;
         this.z += (this.velocity * Math.cos(this.orientation) * delta_t) / 500;
 
@@ -247,7 +249,40 @@ export class MyBee extends CGFobject{
     accelerate(v) { 
         let accSpeed = Math.sqrt(this.velocity ** 2) + (v * this.scene.beeSpeed);
         accSpeed = Math.max(0, accSpeed);
-        this.velocity = -accSpeed;
+        
+        if(!this.descending && !this.stationary)
+            this.velocity = -accSpeed;
+    }
+
+    descend(flowersX, flowersY, flowersZ){
+        if(this.velocity != 0)
+            this.flagvelocity = this.velocity;
+
+        this.flowersXX = flowersX;
+        this.flowersYY = flowersY;
+        this.flowersZZ = flowersZ;
+        this.changeBeeXZ();
+        
+        this.velocity = 0;
+        this.descending = true;
+    }
+
+    changeBeeXZ(){
+        if(this.flowersXX.length > 0){
+            for (let i = 0; i < this.flowersXX.length; i++) {
+                let distanceX = Math.abs(this.x - this.flowersXX[i]);
+                let distanceZ = Math.abs(this.z - this.flowersZZ[i]);
+                console.log(distanceX,distanceZ);
+
+                if (distanceX <= 3 && distanceZ <= 3){
+                    this.x = this.flowersXX[i];
+                    this.z = this.flowersZZ[i];
+                    this.beePosChanged = true;
+                    this.objectBelowY = this.flowersYY[i];
+                    break;
+                }
+            }
+        }
     }
 
     reset() {
@@ -256,5 +291,14 @@ export class MyBee extends CGFobject{
         this.z = this.initial.z;
         this.orientation = 0;
         this.velocity = 0;
+        this.help = 1;
+        this.descending = false;
+        this.flagvelocity = 0;
+        this.stationary = false;
+        this.flowersXX = [];
+        this.flowersYY = [];
+        this.flowersZZ = [];
+        this.beePosChanged = false;
+        this.objectBelowY = -2;
     }
 }

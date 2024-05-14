@@ -14,12 +14,18 @@ export class MyGarden extends CGFobject {
         this.pollen = new MyPollen(this.scene);
         this.flowers = this.initFlowers();
         this.pollenAngles = this.initPollenAngles();
+        this.flowersX = [];
+        this.flowersY = [];
+        this.flowersZ = [];
     }
 
 
     display() {
         const separation = 7;
         const flowerSize = 1; // Assuming each flower has a size of 1 unit
+        this.flowersX = [];
+        this.flowersY = [];
+        this.flowersZ = [];
     
         for (let i = 0; i < this.flowers.length; i++) {
             const row = Math.floor(i / this.ySize); // Calculate row index
@@ -34,6 +40,9 @@ export class MyGarden extends CGFobject {
             this.scene.popMatrix();
 
             const steamHigh = this.flowers[i].steamHigh;
+            this.flowersX.push(x);
+            this.flowersY.push(steamHigh);
+            this.flowersZ.push(z);
             this.scene.pushMatrix();
             this.scene.translate(x - 0.3, steamHigh + this.flowers[i].steamRadius * 2 + 0.5, z);
             this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
