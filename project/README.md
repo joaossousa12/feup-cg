@@ -14,6 +14,8 @@
 
 - For the 4.3 topic we did all that was asked. We had some difficulties along the completion of this task such as when there is no input acceleration but there is speed and when we turned the bee it continued to head on the last orientation and not the new one but we could fix this and other minor problems.
 
+- For topic 5 we did the pollen and a modern beehive shaped like a box. Since we are limited on time the bee hive has a problem with lighting we tried adding more lights and it solved the issue but it made the other objects very bright so we removed the lights and maintained the bee hive darker.
+
 ### Topic 1.1
 ![Screenshot 1.1](screenshots/project-t06g09-1.1.png)
 ### Topic 1.2
@@ -30,3 +32,5 @@
 
 ### Topic 4.3
 ![Screenshot 5](screenshots/project-t06g09-5.png)
+
+### Topic 5

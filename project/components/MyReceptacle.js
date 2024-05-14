@@ -1,5 +1,5 @@
 import { CGFappearance, CGFobject } from "../../lib/CGF.js";
-import { MyPetal } from "../primitives/MyPetal.js";
+import { MyPetal } from "./MyPetal.js";
 import { MySphere } from "../primitives/MySphere.js";
 /**
  * MyReceptacle

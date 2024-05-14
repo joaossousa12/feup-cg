@@ -6,6 +6,8 @@ import { MyRock } from "./objects/MyRock.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
 import { MyPlane } from "./primitives/MyPlane.js";
 import { MySphere } from "./primitives/MySphere.js";
+import { MyHive } from "./objects/MyHive.js";
+import { MyPollen } from "./objects/MyPollen.js";
 
 /**
  * MyScene
@@ -65,6 +67,8 @@ export class MyScene extends CGFscene {
     this.bee = new MyBee(this, 0, 0, 0);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
     this.garden = new MyGarden(this, 5, 6);
+    this.pollen = new MyPollen(this);
+    this.hive = new MyHive(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -73,7 +77,7 @@ export class MyScene extends CGFscene {
     this.displayRock = false;
     this.displayRockSet = false;
     this.displayBee = false;
-    this.displayGarden = true;
+    this.displayGarden = false;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
     this.beeScale = 1;
@@ -85,6 +89,27 @@ export class MyScene extends CGFscene {
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
+
+
+    // this.lights[1].setPosition(0, 3, 20, 1);
+    // this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    // this.lights[1].enable();
+    // this.lights[1].update();
+
+    // this.lights[2].setPosition(0, 20, 0, 1);
+    // this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    // this.lights[2].enable();
+    // this.lights[2].update();
+
+    // this.lights[3].setPosition(-20, 3, 0, 1);
+    // this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    // this.lights[3].enable();
+    // this.lights[3].update();
+
+    // this.lights[4].setPosition(20, 3, 0, 1);
+    // this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    // this.lights[4].enable();
+    // this.lights[4].update();
   }
   initCameras() {
     this.camera = new CGFcamera(
@@ -125,8 +150,21 @@ export class MyScene extends CGFscene {
     }
 
     if(this.displayRockSet){
+      this.pushMatrix();
+      this.scale(4,4,4);
       this.rockMaterial.apply();
       this.rockSet.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.translate(0, 6, 0);
+      this.hive.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.translate(10, 0, 0);
+      this.pollen.display();
+      this.popMatrix();
     }
 
     if(this.displayRock){
