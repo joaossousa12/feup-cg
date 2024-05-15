@@ -27,6 +27,7 @@ export class MyBee extends CGFobject{
         this.velocity = 0;
         this.flagvelocity = 0;
         this.descending = false;
+        this.ascending = false;
         this.help = 1;
         this.stationary = false;
         this.flowersXX = [];
@@ -218,16 +219,28 @@ export class MyBee extends CGFobject{
         let frequencyHeight = 2 * Math.PI / 1500;
         let amplitude = 1;
         
-        if(!this.descending && !this.stationary)
+        if(!this.descending && !this.stationary && !this.ascending)
             this.y = this.help * this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
+
+        else if(this.ascending && this.y <= this.initial.y)
+            this.y += 0.05;
 
         else if(this.descending && this.y >= this.objectBelowY) // the floor for the bee absolute position is around -2
             this.y -= 0.05;
         
         else{
-            this.descending = false;
-            this.help = 0;
-            this.stationary = true;
+            if(this.descending){
+                this.descending = false;
+                this.help = 0;
+                this.stationary = true;
+            }
+            else if(this.ascending){
+                this.ascending = false;
+                this.help = 1;
+                this.stationary = false;
+                this.velocity = this.flagvelocity;
+                this.flagvelocity = 0;
+            }
         }
 
         this.x += (this.velocity * Math.sin(this.orientation) * delta_t) / 500;
@@ -267,6 +280,14 @@ export class MyBee extends CGFobject{
         this.descending = true;
     }
 
+    ascend(){
+        if(!this.descending && this.stationary){
+            this.ascending = true;
+        } else {
+            console.log("Either initiate a descend or wait until descend is finished and try again!");
+        }
+    }
+
     changeBeeXZ(){
         if(this.flowersXX.length > 0){
             for (let i = 0; i < this.flowersXX.length; i++) {
@@ -293,6 +314,7 @@ export class MyBee extends CGFobject{
         this.velocity = 0;
         this.help = 1;
         this.descending = false;
+        this.ascending = false;
         this.flagvelocity = 0;
         this.stationary = false;
         this.flowersXX = [];
