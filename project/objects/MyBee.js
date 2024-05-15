@@ -71,6 +71,7 @@ export class MyBee extends CGFobject{
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.orientation, 0, 1, 0);
+        this.scene.scale(this.beeScaleConstruct, this.beeScaleConstruct, this.beeScaleConstruct);
         this.display2();
         this.scene.popMatrix();
     }
@@ -220,6 +221,15 @@ export class MyBee extends CGFobject{
 
         let frequencyHeight = 2 * Math.PI / 1500;
         let amplitude = 1;
+
+        let stemThreshold = 1;
+
+        if(this.beeScaleConstruct < 1)
+            stemThreshold = 1.5;
+        else if(this.beeScaleConstruct < 2)
+            stemThreshold = 2.2;
+        else 
+            stemThreshold = 2.6;
         
         if(!this.descending && !this.stationary && !this.ascending)
             this.y = this.help * this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
@@ -227,7 +237,7 @@ export class MyBee extends CGFobject{
         else if(this.ascending && this.y <= this.initial.y)
             this.y += 0.05;
 
-        else if(this.descending && this.y * beeScale + 0.8 / beeScale >= this.objectBelowY) // the floor for the bee absolute position is around -2
+        else if(this.descending && this.y - stemThreshold >= this.objectBelowY) // the floor for the bee absolute position is around -2
             this.y -= 0.05;
         
         else{
@@ -294,28 +304,12 @@ export class MyBee extends CGFobject{
         if(this.flowersXX.length > 0){
             for (let i = 0; i < this.flowersXX.length; i++) {
                 let distanceX, distanceZ;
-                if(this.beeScaleConstruct < 1){
-                    distanceX = Math.abs(this.x * this.beeScaleConstruct - this.flowersXX[i]);
-                    distanceZ = Math.abs(this.z * this.beeScaleConstruct - this.flowersZZ[i]);
-                }
-                else if(this.beeScaleConstruct > 2){
-                    distanceX = Math.abs(this.x * (this.beeScaleConstruct * (2/3)) - this.flowersXX[i]);
-                    distanceZ = Math.abs(this.z * (this.beeScaleConstruct * (2/3)) - this.flowersZZ[i]);
-                }
-
-                else {
-                    distanceX = Math.abs(this.x - this.flowersXX[i]);
-                    distanceZ = Math.abs(this.z - this.flowersZZ[i]);
-                }
+                distanceX = Math.abs(this.x - this.flowersXX[i]);
+                distanceZ = Math.abs(this.z - this.flowersZZ[i]);
 
                 if (distanceX <= 3 && distanceZ <= 3){
-                    if(this.beeScaleConstruct < 1){
-                        this.x = this.flowersXX[i] / this.beeScaleConstruct;
-                        this.z = this.flowersZZ[i] / this.beeScaleConstruct;
-                    } else {
-                        this.x = this.flowersXX[i] / (this.beeScaleConstruct);
-                        this.z = this.flowersZZ[i] / (this.beeScaleConstruct );
-                    }
+                    this.x = this.flowersXX[i];
+                    this.z = this.flowersZZ[i];
                     this.objectBelowY = this.flowersYY[i];
                     break;
                 }
