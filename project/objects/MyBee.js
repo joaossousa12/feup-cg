@@ -50,6 +50,9 @@ export class MyBee extends CGFobject{
         this.flowerIndex = -1;
         this.notrepeat = false;
         this.pollenPicked = false;
+        this.moveToHive = false;
+        this.counter = 0;
+        this.counterz = 0;
 
         this.initMaterials();
     }
@@ -284,7 +287,32 @@ export class MyBee extends CGFobject{
         else 
             stemThreshold = 2.6;
         
-        if(!this.descending && !this.stationary && !this.ascending)
+        if(this.moveToHive && this.z >= -10 + this.counterz){
+            this.orientation = Math.PI * 2;
+            this.z -= 0.1;
+        }
+
+        else if (this.moveToHive && this.z < -10 + this.counterz - 0.11){
+            this.orientation = Math.PI;
+            this.z += 0.1;
+        }
+
+        else if(this.moveToHive && this.x >= 3 - this.counter) {
+            this.orientation = Math.PI / 2;
+            this.x -= 0.1;
+        }
+
+        else if (this.moveToHive && this.x < 3 - this.counter - 0.11){
+            this.orientation = -1.5;
+            this.x += 0.1;
+        }
+
+        else if(this.moveToHive && this.y >= 8){
+            this.orientation = Math.PI;
+            this.y -= 0.05;
+        }
+
+        else if(!this.descending && !this.stationary && !this.ascending && !this.moveToHive)
             this.y = this.help * this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
 
         else if(this.ascending && this.y <= this.initial.y)
@@ -299,12 +327,27 @@ export class MyBee extends CGFobject{
                 this.help = 0;
                 this.stationary = true;
             }
+
             else if(this.ascending){
                 this.ascending = false;
                 this.help = 1;
                 this.stationary = false;
                 this.velocity = this.flagvelocity;
                 this.flagvelocity = 0;
+            }
+
+            else if(this.moveToHive){
+                this.moveToHive = false;
+                this.pollenPicked = false;
+                this.pollenInPosition[this.flowerIndex] = true;
+                this.pollenPositions[this.flowerIndex] = {x: 3 - this.counter, y: 7.5, z: -10 + this.counterz};
+                
+                this.counter++;
+                
+                if(this.counter == 7){
+                    this.counter = 0;
+                    this.counterz++;
+                } 
             }
         }
 
@@ -321,15 +364,18 @@ export class MyBee extends CGFobject{
     }
 
     turn(v){
-        this.orientation += v * this.scene.beeSpeed;
+        if(!this.moveToHive)
+            this.orientation += v * this.scene.beeSpeed;
     }
 
     accelerate(v) { 
-        let accSpeed = Math.sqrt(this.velocity ** 2) + (v * this.scene.beeSpeed);
-        accSpeed = Math.max(0, accSpeed);
-        
-        if(!this.descending && !this.stationary)
-            this.velocity = -accSpeed;
+        if(!this.moveToHive){
+            let accSpeed = Math.sqrt(this.velocity ** 2) + (v * this.scene.beeSpeed);
+            accSpeed = Math.max(0, accSpeed);
+            
+            if(!this.descending && !this.stationary)
+                this.velocity = -accSpeed;
+        }
     }
 
     descend(){
@@ -360,6 +406,13 @@ export class MyBee extends CGFobject{
             }
         } else {
             console.log("Either initiate a descend or wait until descend is finished and try again!");
+        }
+    }
+
+    goToHive(){
+        if(this.pollenPicked && !this.ascending){
+            this.moveToHive = true;
+            this.velocity = 0;
         }
     }
 
@@ -397,6 +450,7 @@ export class MyBee extends CGFobject{
         this.flowersZZ = [];
         this.objectBelowY = -2;
         this.flowerIndex = -1;
+        this.moveToHive = false;
     }
 
     initPollenAngles(){

@@ -78,6 +78,7 @@ export class MyScene extends CGFscene {
     this.displayRockSet = false;
     //this.displayBee = false; disabled this because for task 5 we don't really have a bee alone as an object it has the garden and pollen atleast
     this.displayGarden = false;
+    this.displayTask5_2 = false;
     this.displayTask5 = true;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
@@ -130,6 +131,11 @@ export class MyScene extends CGFscene {
     }
 
     if(this.displayRockSet){
+      this.rockMaterial.apply();
+      this.rockSet.display();
+    }
+
+    if(this.displayTask5_2){
       this.pushMatrix();
       this.scale(4,4,4);
       this.rockMaterial.apply();
@@ -161,6 +167,23 @@ export class MyScene extends CGFscene {
     // }
 
     if(this.displayTask5){
+      this.pushMatrix();
+
+      this.translate(0, 0, -10);
+
+      this.pushMatrix();
+      this.scale(4,4,4);
+      this.rockMaterial.apply();
+      this.rockSet.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.translate(0, 4.3, 0);
+      this.hive.display();
+      this.popMatrix();
+
+      this.popMatrix();
+
       this.bee.display();
     }
     // ---- BEGIN Primitive drawing section
@@ -225,6 +248,12 @@ export class MyScene extends CGFscene {
     if(this.gui.isKeyPressed("KeyP")){
       text+=" P ";
       this.bee.ascend();
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyO")){
+      text+=" O ";
+      this.bee.goToHive();
       keysPressed=true;
     }
 

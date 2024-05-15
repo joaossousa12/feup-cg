@@ -14,7 +14,7 @@
 
 - For the 4.3 topic we did all that was asked. We had some difficulties along the completion of this task such as when there is no input acceleration but there is speed and when we turned the bee it continued to head on the last orientation and not the new one but we could fix this and other minor problems.
 
-- For topic 5 we did the pollen and a modern beehive shaped like a box. We had a problem with lighting but we fixed it changing the normals of the quad primitive. This topic asked to put the hive above the rock pile but since we have a singular rock on top we overlapped the hive with it making the hive stand on a base of 4 rocks to be more realistic. Additionally to the box shaped hive we added a cover and 2 handles to the hive. Made the bee able to descend either to the flower if any below (in a threshold of 3 units of distance on both X and Z) or to the floor (corresponds to y = -2 because of how the bee is designed). For the descending we had a problem because of the scaling of the bee but we managed to overcome it.
+- For topic 5 we did the pollen and a modern beehive shaped like a box. We had a problem with lighting but we fixed it changing the normals of the quad primitive. This topic asked to put the hive above the rock pile but since we have a singular rock on top we overlapped the hive with it making the hive stand on a base of 4 rocks to be more realistic. Additionally to the box shaped hive we added a cover and 2 handles to the hive. Made the bee able to descend either to the flower if any below (in a threshold of 3 units of distance on both X and Z) or to the floor (corresponds to y = -2 because of how the bee is designed). For the descending we had a problem because of the scaling of the bee but we managed to overcome it. We had troubles again with scaling of the polen but we solved it easily by adding it to the secondary display of the bee if it was picked up. The bee is able to take the pollen to the hive it is taking horizontal lines on x and z for now but maybe on additional developments (if we have time) will parabolic descend into the hive and flower. (there are 2 screenshots one for each subtopic)
 
 ### Topic 1.1
 ![Screenshot 1.1](screenshots/project-t06g09-1.1.png)
@@ -36,3 +36,4 @@
 ### Topic 5
 ![Screenshot 6.1](screenshots/project-t06g09-6.1.png)
 
+![Screenshot 6.2 Final](screenshots/project-t06g09-6.2.png)
