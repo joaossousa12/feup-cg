@@ -64,7 +64,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
     this.rock = new MyRock(this, 20, 20);
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
-    this.bee = new MyBee(this, 0, 12, 0);
+    this.bee = new MyBee(this, 0, 14, 0);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
     this.garden = new MyGarden(this, 5, 6);
     this.pollen = new MyPollen(this);
@@ -75,9 +75,10 @@ export class MyScene extends CGFscene {
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayRock = false;
-    this.displayRockSet = true;
+    this.displayRockSet = false;
     this.displayBee = false;
     this.displayGarden = false;
+    this.displayTask5 = true;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
     this.beeScale = 0.5;
@@ -156,6 +157,16 @@ export class MyScene extends CGFscene {
     }
 
     if(this.displayBee){
+      this.pushMatrix();
+      this.translate(0, 3, 0);
+      this.scale(this.beeScale, this.beeScale, this.beeScale);
+      this.bee.display();
+      this.popMatrix();
+    }
+
+    if(this.displayTask5){
+      this.garden.display();
+
       this.pushMatrix();
       this.translate(0, 3, 0);
       this.scale(this.beeScale, this.beeScale, this.beeScale);

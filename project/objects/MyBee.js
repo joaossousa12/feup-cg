@@ -33,8 +33,8 @@ export class MyBee extends CGFobject{
         this.flowersXX = [];
         this.flowersYY = [];
         this.flowersZZ = [];
-        this.beePosChanged = false;
         this.objectBelowY = -2;
+        this.beeScaleConstruct = 1;
         this.initial = {x: x, y: y, z: z};
 
         this.initMaterials();
@@ -207,6 +207,8 @@ export class MyBee extends CGFobject{
     }
 
     update(t, beeScale){
+        this.beeScaleConstruct = beeScale;
+
         let delta_t = t - this.time;
        
         if(this.time == undefined){
@@ -291,14 +293,29 @@ export class MyBee extends CGFobject{
     changeBeeXZ(){
         if(this.flowersXX.length > 0){
             for (let i = 0; i < this.flowersXX.length; i++) {
-                let distanceX = Math.abs(this.x - this.flowersXX[i]);
-                let distanceZ = Math.abs(this.z - this.flowersZZ[i]);
-                console.log(distanceX,distanceZ);
+                let distanceX, distanceZ;
+                if(this.beeScaleConstruct < 1){
+                    distanceX = Math.abs(this.x * this.beeScaleConstruct - this.flowersXX[i]);
+                    distanceZ = Math.abs(this.z * this.beeScaleConstruct - this.flowersZZ[i]);
+                }
+                else if(this.beeScaleConstruct > 2){
+                    distanceX = Math.abs(this.x * (this.beeScaleConstruct * (2/3)) - this.flowersXX[i]);
+                    distanceZ = Math.abs(this.z * (this.beeScaleConstruct * (2/3)) - this.flowersZZ[i]);
+                }
+
+                else {
+                    distanceX = Math.abs(this.x - this.flowersXX[i]);
+                    distanceZ = Math.abs(this.z - this.flowersZZ[i]);
+                }
 
                 if (distanceX <= 3 && distanceZ <= 3){
-                    this.x = this.flowersXX[i];
-                    this.z = this.flowersZZ[i];
-                    this.beePosChanged = true;
+                    if(this.beeScaleConstruct < 1){
+                        this.x = this.flowersXX[i] / this.beeScaleConstruct;
+                        this.z = this.flowersZZ[i] / this.beeScaleConstruct;
+                    } else {
+                        this.x = this.flowersXX[i] / (this.beeScaleConstruct);
+                        this.z = this.flowersZZ[i] / (this.beeScaleConstruct );
+                    }
                     this.objectBelowY = this.flowersYY[i];
                     break;
                 }
@@ -320,7 +337,6 @@ export class MyBee extends CGFobject{
         this.flowersXX = [];
         this.flowersYY = [];
         this.flowersZZ = [];
-        this.beePosChanged = false;
         this.objectBelowY = -2;
     }
 }

@@ -40,9 +40,11 @@ export class MyGarden extends CGFobject {
             this.scene.popMatrix();
 
             const steamHigh = this.flowers[i].steamHigh;
+            
             this.flowersX.push(x);
             this.flowersY.push(steamHigh);
             this.flowersZ.push(z);
+            
             this.scene.pushMatrix();
             this.scene.translate(x - 0.3, steamHigh + this.flowers[i].steamRadius * 2 + 0.5, z);
             this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
