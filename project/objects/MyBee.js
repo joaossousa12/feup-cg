@@ -25,6 +25,8 @@ export class MyBee extends CGFobject{
             this.garden = new MyGarden(this.scene, 5, 6);
             this.pollen = new MyPollen(this.scene);
             this.pollenAngles = this.initPollenAngles();
+            this.pollenPositions = [];
+            this.pollenInPosition = [];
         }
         
         this.gardenWithBee = gardenWithBee;
@@ -45,6 +47,9 @@ export class MyBee extends CGFobject{
         this.objectBelowY = -2;
         this.beeScaleConstruct = 1;
         this.initial = {x: x, y: y, z: z};
+        this.flowerIndex = -1;
+        this.notrepeat = false;
+        this.pollenPicked = false;
 
         this.initMaterials();
     }
@@ -81,21 +86,37 @@ export class MyBee extends CGFobject{
             this.garden.display();
             
             let flowers = this.garden.flowers;
+            if(!this.notrepeat){
+                for (let i = 0; i < flowers.length; i++) { // display pollens
+                    const row = Math.floor(i / this.garden.ySize); 
+                    const col = i % this.garden.ySize;
+            
+                    const x = col * 8;
+                    const z = row * 8;
 
-            for (let i = 0; i < flowers.length; i++) { // display pollens
-                const row = Math.floor(i / this.garden.ySize); 
-                const col = i % this.garden.ySize;
-        
-                const x = col * 8;
-                const z = row * 8;
+                    this.pollenPositions.push({x: x - 0.3, y: flowers[i].steamHigh + flowers[i].steamRadius * 2 + 0.5, z: z});
+                    this.pollenInPosition.push(true);
+                    this.notrepeat = true;
+                }
+            }
 
-
-                this.scene.pushMatrix();
-                this.scene.translate(x - 0.3, flowers[i].steamHigh + flowers[i].steamRadius * 2 + 0.5, z);
-                this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
-                this.scene.scale(0.5, 0.5, 0.5);    
-                this.pollen.display();
-                this.scene.popMatrix();
+            for (let i = 0; i < this.pollenPositions.length; i++) {
+                if(this.pollenInPosition[i]){
+                    this.scene.pushMatrix();
+                    this.scene.translate(this.pollenPositions[i].x, this.pollenPositions[i].y, this.pollenPositions[i].z);
+                    this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
+                    this.scene.scale(0.5, 0.5, 0.5);
+                    this.pollen.display();
+                    this.scene.popMatrix();
+                } else { // bee has picked the pollen
+                    this.scene.pushMatrix();
+                    this.scene.translate(this.x - 0.1, this.y - 0.5, this.z - 0.35);
+                    this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
+                    this.scene.rotate(this.orientation, 0,1,0);
+                    this.scene.scale(0.5, 0.5, 0.5);
+                    this.pollen.display();
+                    this.scene.popMatrix();
+                }
             }
         }
 
@@ -311,24 +332,31 @@ export class MyBee extends CGFobject{
     }
 
     descend(){
-        if(this.velocity != 0)
-            this.flagvelocity = this.velocity;
+        if(!this.pollenPicked){
+            if(this.velocity != 0)
+                this.flagvelocity = this.velocity;
 
-        if(this.gardenWithBee){
-            this.flowersXX = this.garden.flowersX;
-            this.flowersYY = this.garden.flowersY;
-            this.flowersZZ = this.garden.flowersZ;
-            this.changeBeeXZ();
-        
+            if(this.gardenWithBee){
+                this.flowersXX = this.garden.flowersX;
+                this.flowersYY = this.garden.flowersY;
+                this.flowersZZ = this.garden.flowersZ;
+                this.changeBeeXZ();
+            
+            }
+
+            this.velocity = 0;
+            this.descending = true;
         }
-
-        this.velocity = 0;
-        this.descending = true;
     }
 
     ascend(){
         if(!this.descending && this.stationary){
             this.ascending = true;
+
+            if(this.pollenInPosition[this.flowerIndex]){
+                this.pollenInPosition[this.flowerIndex] = false;
+                this.pollenPicked = true;
+            }
         } else {
             console.log("Either initiate a descend or wait until descend is finished and try again!");
         }
@@ -345,6 +373,7 @@ export class MyBee extends CGFobject{
                     this.x = this.flowersXX[i];
                     this.z = this.flowersZZ[i];
                     this.objectBelowY = this.flowersYY[i];
+                    this.flowerIndex = i;
                     break;
                 }
             }
@@ -366,6 +395,8 @@ export class MyBee extends CGFobject{
         this.flowersYY = [];
         this.flowersZZ = [];
         this.objectBelowY = -2;
+        this.flowerIndex = -1;
+        this.pollenPicked = false;
     }
 
     initPollenAngles(){
