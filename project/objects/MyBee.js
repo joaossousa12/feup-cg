@@ -108,14 +108,6 @@ export class MyBee extends CGFobject{
                     this.scene.scale(0.5, 0.5, 0.5);
                     this.pollen.display();
                     this.scene.popMatrix();
-                } else { // bee has picked the pollen
-                    this.scene.pushMatrix();
-                    this.scene.translate(this.x - 0.1, this.y - 0.5, this.z - 0.35);
-                    this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
-                    this.scene.rotate(this.orientation, 0,1,0);
-                    this.scene.scale(0.5, 0.5, 0.5);
-                    this.pollen.display();
-                    this.scene.popMatrix();
                 }
             }
         }
@@ -234,6 +226,15 @@ export class MyBee extends CGFobject{
         this.scene.scale(-1, 1, 1);
         this.mandible.display();
         this.scene.popMatrix();
+
+        if(this.pollenPicked){ // pollen has been picked by the bee
+            this.scene.pushMatrix();
+            this.scene.translate(0, -0.8, -0.35);
+            this.scene.rotate(-Math.PI / 4, 1, 0, 0);
+            this.scene.scale(1, 1, 1);
+            this.pollen.display();
+            this.scene.popMatrix();
+        }
 
         this.scene.gl.blendFunc(this.scene.gl.SRC_ALPHA, this.scene.gl.ONE_MINUS_SRC_ALPHA);
         this.scene.gl.enable(this.scene.gl.BLEND);
@@ -396,7 +397,6 @@ export class MyBee extends CGFobject{
         this.flowersZZ = [];
         this.objectBelowY = -2;
         this.flowerIndex = -1;
-        this.pollenPicked = false;
     }
 
     initPollenAngles(){
