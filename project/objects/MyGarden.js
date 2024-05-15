@@ -36,10 +36,10 @@ export class MyGarden extends CGFobject {
             this.flowers[i].display();
             this.scene.popMatrix();
 
-            const steamHigh = this.flowers[i].steamHigh;
+            const stemHigh = this.flowers[i].stemHigh;
             
             this.flowersX.push(x);
-            this.flowersY.push(steamHigh);
+            this.flowersY.push(stemHigh);
             this.flowersZ.push(z);
         }
     }

@@ -14,6 +14,7 @@ export class MyStem extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
         
         const angle = (2 * Math.PI) / this.slices;
 
@@ -35,6 +36,8 @@ export class MyStem extends CGFobject {
             for (let j = 0; j < this.slices; j++) {
                 const x = this.radius * Math.cos(j * angle);
                 const y = this.radius * Math.sin(j * angle);
+                const u = j / this.slices;
+                const v = i / this.stacks;
                 if (z === 0) {
                     this.vertices.push(x, y, z);
                     this.normals.push(0, 0, -1); // Normal for bottom face
@@ -42,6 +45,7 @@ export class MyStem extends CGFobject {
                     this.vertices.push(x, y, z);
                     this.normals.push(0, 0, 1); // Normal for top face
                 }
+                this.texCoords.push(u, v);
             }
         }
 

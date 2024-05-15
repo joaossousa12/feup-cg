@@ -8,6 +8,8 @@
 
 - For the 1.2 topic we didn't have much difficulties and we did all that was asked, we also implemented a fov slider and we provided two screenshots to better show the panorama with different fov settings.
 
+- For topic 2.1 we created the flower and then the garden with randomness and diversity. We applied some textures to the heart/leaves/stem/petals. And the only part we had a bigger difficulty was the curving of the stem that we might not change due to the late completion of this task compared to the further ones. 
+
 - For the 3 topic we did all that was asked, but we had some difficulties those being when defining the rock there was a part that could be seen through and we corrected by applying a constant noise (deformation) to the first and last slice.
 
 - For the 4.1 topic we did all that was asked, the two challenging parts were to apply a bee pattern texture to the abdomen of the bee because we needed to change the way we did the abdomen so the poles of the sphere where on the horizontal and not on the vertical, and the other challenging part was to make the wings "semi-transparent" because we were using alpha values too high and when we lowered we achieved what we wanted.

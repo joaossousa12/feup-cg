@@ -77,9 +77,9 @@ export class MyScene extends CGFscene {
     this.displayRock = false;
     this.displayRockSet = false;
     //this.displayBee = false; disabled this because for task 5 we don't really have a bee alone as an object it has the garden and pollen atleast
-    this.displayGarden = false;
+    this.displayGarden = true;
     this.displayTask5_2 = false;
-    this.displayTask5 = true;
+    this.displayTask5 = false;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
     this.beeScale = 0.5;

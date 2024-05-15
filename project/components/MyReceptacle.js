@@ -22,43 +22,47 @@ export class MyReceptacle extends CGFobject {
     initMaterials(){
         if(this.petalColor==1){
             this.petalMaterial = new CGFappearance(this.scene);
-            this.petalMaterial.setAmbient(255 / 255, 255 / 255, 20 / 255, 1.0); // Set ambient color to yellow
-            this.petalMaterial.setDiffuse(255 / 255, 255 / 255, 20 / 255, 1.0); // Set diffuse color to yellow
-            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); // Set specular color to white
-            this.petalMaterial.setShininess(10.0); // Set shininess to 10
+            this.petalMaterial.setAmbient(255 / 255, 255 / 255, 20 / 255, 1.0);
+            this.petalMaterial.setDiffuse(255 / 255, 255 / 255, 20 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
         } else if(this.petalColor==2){
             this.petalMaterial = new CGFappearance(this.scene);
-            this.petalMaterial.setAmbient(255 / 255, 20 / 255, 20 / 255, 1.0); // Set ambient color to red
-            this.petalMaterial.setDiffuse(255 / 255, 20 / 255, 20 / 255, 1.0); // Set diffuse color to red
-            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); // Set specular color to white
+            this.petalMaterial.setAmbient(255 / 255, 20 / 255, 20 / 255, 1.0); 
+            this.petalMaterial.setDiffuse(255 / 255, 20 / 255, 20 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
             this.petalMaterial.setShininess(10.0);
         }
+        this.petalMaterial.loadTexture('images/petalTexture.png');
 
         if(this.sphereColor==1){
             this.sphereMaterial = new CGFappearance(this.scene);
-            this.sphereMaterial.setAmbient(255 / 255, 51 / 255, 51 / 255, 1.0); // Set ambient color to a brighter red
-            this.sphereMaterial.setDiffuse(255 / 255, 51 / 255, 51 / 255, 1.0); // Set diffuse color to a brighter red
-            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); // Set specular color to white
+            this.sphereMaterial.setAmbient(255 / 255, 51 / 255, 51 / 255, 1.0);
+            this.sphereMaterial.setDiffuse(255 / 255, 51 / 255, 51 / 255, 1.0);
+            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
             this.sphereMaterial.setShininess(10.0);
         } else if(this.sphereColor==2){
             this.sphereMaterial = new CGFappearance(this.scene);
-            this.sphereMaterial.setAmbient(255 / 255, 192 / 255, 203 / 255, 1.0); // Set ambient color to pink
-            this.sphereMaterial.setDiffuse(255 / 255, 192 / 255, 203 / 255, 1.0); // Set diffuse color to pink
-            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); // Set specular color to white
+            this.sphereMaterial.setAmbient(255 / 255, 192 / 255, 203 / 255, 1.0);
+            this.sphereMaterial.setDiffuse(255 / 255, 192 / 255, 203 / 255, 1.0);
+            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
             this.sphereMaterial.setShininess(10.0);
         } else if(this.sphereColor==3){
             this.sphereMaterial = new CGFappearance(this.scene);
-            this.sphereMaterial.setAmbient(255 / 255, 165 / 255, 0 / 255, 1.0); // Set ambient color to orange
-            this.sphereMaterial.setDiffuse(255 / 255, 165 / 255, 0 / 255, 1.0); // Set diffuse color to orange
-            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); // Set specular color to white
+            this.sphereMaterial.setAmbient(255 / 255, 165 / 255, 0 / 255, 1.0);
+            this.sphereMaterial.setDiffuse(255 / 255, 165 / 255, 0 / 255, 1.0);
+            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
             this.sphereMaterial.setShininess(10.0);
         } else if(this.sphereColor==4){
             this.sphereMaterial = new CGFappearance(this.scene);
-            this.sphereMaterial.setAmbient(139 / 255, 69 / 255, 19 / 255, 1.0); // Set ambient color to brown
-            this.sphereMaterial.setDiffuse(139 / 255, 69 / 255, 19 / 255, 1.0); // Set diffuse color to brown
-            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); // Set specular color to white
+            this.sphereMaterial.setAmbient(139 / 255, 69 / 255, 19 / 255, 1.0); 
+            this.sphereMaterial.setDiffuse(139 / 255, 69 / 255, 19 / 255, 1.0);
+            this.sphereMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
             this.sphereMaterial.setShininess(10.0);
         }
+        
+        this.sphereMaterial.loadTexture('images/heartTexture.webp');
+        this.sphereMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     display(){

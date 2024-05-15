@@ -97,7 +97,7 @@ export class MyBee extends CGFobject{
                     const x = col * 8;
                     const z = row * 8;
 
-                    this.pollenPositions.push({x: x - 0.3, y: flowers[i].steamHigh + flowers[i].steamRadius * 2 + 0.5, z: z});
+                    this.pollenPositions.push({x: x - 0.3, y: flowers[i].stemHigh + flowers[i].stemRadius * 2 + 0.5, z: z});
                     this.pollenInPosition.push(true);
                     this.notrepeat = true;
                 }
