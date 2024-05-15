@@ -64,7 +64,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
     this.rock = new MyRock(this, 20, 20);
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
-    this.bee = new MyBee(this, 0, 10, 0);
+    this.bee = new MyBee(this, 0, 10, 0, true);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
     this.garden = new MyGarden(this, 5, 6);
     this.pollen = new MyPollen(this);
@@ -76,7 +76,7 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
-    this.displayBee = false;
+    //this.displayBee = false; disabled this because for task 5 we don't really have a bee alone as an object it has the garden and pollen atleast
     this.displayGarden = false;
     this.displayTask5 = true;
     this.scaleFactor = 1;
@@ -156,20 +156,12 @@ export class MyScene extends CGFscene {
       this.garden.display();
     }
 
-    if(this.displayBee){
-      this.pushMatrix();
-      this.translate(0, 3, 0);
-      this.scale(this.beeScale, this.beeScale, this.beeScale);
-      this.bee.display();
-      this.popMatrix();
-    }
+    // if(this.displayBee){
+    //   this.bee.display();
+    // }
 
     if(this.displayTask5){
-      this.garden.display();
-
-      this.pushMatrix();
       this.bee.display();
-      this.popMatrix();
     }
     // ---- BEGIN Primitive drawing section
 
@@ -226,7 +218,7 @@ export class MyScene extends CGFscene {
 
     if(this.gui.isKeyPressed("KeyF")){
       text+=" F ";
-      this.bee.descend(this.garden.flowersX, this.garden.flowersY, this.garden.flowersZ);
+      this.bee.descend();
       keysPressed=true;
     }
 

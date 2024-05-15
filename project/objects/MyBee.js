@@ -1,6 +1,8 @@
 import { CGFappearance, CGFobject } from "../../lib/CGF.js";
 import { MySphere } from "../primitives/MySphere.js";
 import { MyBeeLeg } from "../components/MyBeeLeg.js";
+import { MyGarden } from "./MyGarden.js";
+import { MyPollen } from "./MyPollen.js";
 
 /**
  * MyBee
@@ -8,7 +10,7 @@ import { MyBeeLeg } from "../components/MyBeeLeg.js";
  * @param scene - Reference to MyScene object
  */
 export class MyBee extends CGFobject{
-    constructor(scene, x, y, z){
+    constructor(scene, x, y, z, gardenWithBee = false){
         super(scene);
         this.abdomen = new MySphere(this.scene, 16, 8);
         this.thorax = new MySphere(this.scene, 16, 8);
@@ -18,7 +20,14 @@ export class MyBee extends CGFobject{
         this.leg =  new MyBeeLeg(this.scene);
         this.antenna = new MyBeeLeg(this.scene); // the bee's antennas are using the legs model
         this.mandible = new MyBeeLeg(this.scene); // the bee's mandibles are using the legs model
+
+        if(gardenWithBee){
+            this.garden = new MyGarden(this.scene, 5, 6);
+            this.pollen = new MyPollen(this.scene);
+            this.pollenAngles = this.initPollenAngles();
+        }
         
+        this.gardenWithBee = gardenWithBee;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -68,6 +77,28 @@ export class MyBee extends CGFobject{
     }
 
     display(){
+        if(this.gardenWithBee){
+            this.garden.display();
+            
+            let flowers = this.garden.flowers;
+
+            for (let i = 0; i < flowers.length; i++) { // display pollens
+                const row = Math.floor(i / this.garden.ySize); 
+                const col = i % this.garden.ySize;
+        
+                const x = col * 8;
+                const z = row * 8;
+
+
+                this.scene.pushMatrix();
+                this.scene.translate(x - 0.3, flowers[i].steamHigh + flowers[i].steamRadius * 2 + 0.5, z);
+                this.scene.rotate(this.pollenAngles[i], 0, 0, 1);
+                this.scene.scale(0.5, 0.5, 0.5);    
+                this.pollen.display();
+                this.scene.popMatrix();
+            }
+        }
+
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.orientation, 0, 1, 0);
@@ -279,15 +310,18 @@ export class MyBee extends CGFobject{
             this.velocity = -accSpeed;
     }
 
-    descend(flowersX, flowersY, flowersZ){
+    descend(){
         if(this.velocity != 0)
             this.flagvelocity = this.velocity;
 
-        this.flowersXX = flowersX;
-        this.flowersYY = flowersY;
-        this.flowersZZ = flowersZ;
-        this.changeBeeXZ();
+        if(this.gardenWithBee){
+            this.flowersXX = this.garden.flowersX;
+            this.flowersYY = this.garden.flowersY;
+            this.flowersZZ = this.garden.flowersZ;
+            this.changeBeeXZ();
         
+        }
+
         this.velocity = 0;
         this.descending = true;
     }
@@ -332,5 +366,17 @@ export class MyBee extends CGFobject{
         this.flowersYY = [];
         this.flowersZZ = [];
         this.objectBelowY = -2;
+    }
+
+    initPollenAngles(){
+        let pollenAngles = [];
+
+        for (let i = 0; i < this.garden.xSize; i++) {
+            for (let j = 0; j < this.garden.ySize; j++) {
+                pollenAngles.push(Math.random() * -Math.PI/2);
+            }
+        }
+
+        return pollenAngles;
     }
 }
