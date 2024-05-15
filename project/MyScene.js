@@ -6,6 +6,8 @@ import { MyRock } from "./objects/MyRock.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
 import { MyPlane } from "./primitives/MyPlane.js";
 import { MySphere } from "./primitives/MySphere.js";
+import { MyHive } from "./objects/MyHive.js";
+import { MyPollen } from "./objects/MyPollen.js";
 
 /**
  * MyScene
@@ -62,21 +64,25 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, this.sphereStacks, this.sphereSlices, false, 1.0);
     this.rock = new MyRock(this, 20, 20);
     this.rockSet = new MyRockSet(this, 0.3, 0.3);
-    this.bee = new MyBee(this, 0, 0, 0);
+    this.bee = new MyBee(this, 0, 10, 0, true);
     this.panorama = new MyPanorama(this, this.panoramaTexture);
     this.garden = new MyGarden(this, 5, 6);
+    this.pollen = new MyPollen(this);
+    this.hive = new MyHive(this);
 
     //Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
-    this.displayBee = false;
-    this.displayGarden = true;
+    //this.displayBee = false; disabled this because for task 5 we don't really have a bee alone as an object it has the garden and pollen atleast
+    this.displayGarden = false;
+    this.displayTask5_2 = false;
+    this.displayTask5 = true;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
-    this.beeScale = 1;
+    this.beeScale = 0.5;
 
     this.setUpdatePeriod(1000/60);
   }
@@ -129,6 +135,24 @@ export class MyScene extends CGFscene {
       this.rockSet.display();
     }
 
+    if(this.displayTask5_2){
+      this.pushMatrix();
+      this.scale(4,4,4);
+      this.rockMaterial.apply();
+      this.rockSet.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.translate(0, 4.3, 0);
+      this.hive.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.translate(10, 0, 0);
+      this.pollen.display();
+      this.popMatrix();
+    }
+
     if(this.displayRock){
       this.rockMaterial.apply();
       this.rock.display();
@@ -138,12 +162,29 @@ export class MyScene extends CGFscene {
       this.garden.display();
     }
 
-    if(this.displayBee){
+    // if(this.displayBee){
+    //   this.bee.display();
+    // }
+
+    if(this.displayTask5){
       this.pushMatrix();
-      this.translate(0, 3, 0);
-      this.scale(this.beeScale, this.beeScale, this.beeScale);
-      this.bee.display();
+
+      this.translate(0, 0, -10);
+
+      this.pushMatrix();
+      this.scale(4,4,4);
+      this.rockMaterial.apply();
+      this.rockSet.display();
       this.popMatrix();
+
+      this.pushMatrix();
+      this.translate(0, 4.3, 0);
+      this.hive.display();
+      this.popMatrix();
+
+      this.popMatrix();
+
+      this.bee.display();
     }
     // ---- BEGIN Primitive drawing section
 
@@ -159,7 +200,7 @@ export class MyScene extends CGFscene {
   }
 
   update(t){
-    this.bee.update(t);
+    this.bee.update(t, this.beeScale);
 
     this.checkKeys();
   }
@@ -195,6 +236,24 @@ export class MyScene extends CGFscene {
     if(this.gui.isKeyPressed("KeyD")){
       text+=" D ";
       this.bee.turn(Math.PI/16);
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyF")){
+      text+=" F ";
+      this.bee.descend();
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyP")){
+      text+=" P ";
+      this.bee.ascend();
+      keysPressed=true;
+    }
+
+    if(this.gui.isKeyPressed("KeyO")){
+      text+=" O ";
+      this.bee.goToHive();
       keysPressed=true;
     }
 

@@ -11,12 +11,18 @@ export class MyGarden extends CGFobject {
         this.xSize = xSize;
         this.ySize = ySize;
         this.flowers = this.initFlowers();
+        this.flowersX = [];
+        this.flowersY = [];
+        this.flowersZ = [];
     }
 
 
     display() {
         const separation = 7;
-        const flowerSize = 1; // Assuming each flower has a size of 1 unit
+        const flowerSize = 1; 
+        this.flowersX = [];
+        this.flowersY = [];
+        this.flowersZ = [];
     
         for (let i = 0; i < this.flowers.length; i++) {
             const row = Math.floor(i / this.ySize); // Calculate row index
@@ -29,6 +35,12 @@ export class MyGarden extends CGFobject {
             this.scene.translate(x, 0, z);
             this.flowers[i].display();
             this.scene.popMatrix();
+
+            const steamHigh = this.flowers[i].steamHigh;
+            
+            this.flowersX.push(x);
+            this.flowersY.push(steamHigh);
+            this.flowersZ.push(z);
         }
     }
 
