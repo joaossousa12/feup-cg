@@ -206,7 +206,7 @@ export class MyBee extends CGFobject{
         this.scene.gl.disable(this.scene.gl.BLEND);
     }
 
-    update(t){
+    update(t, beeScale){
         let delta_t = t - this.time;
        
         if(this.time == undefined){
@@ -225,7 +225,7 @@ export class MyBee extends CGFobject{
         else if(this.ascending && this.y <= this.initial.y)
             this.y += 0.05;
 
-        else if(this.descending && this.y >= this.objectBelowY) // the floor for the bee absolute position is around -2
+        else if(this.descending && this.y * beeScale + 0.8 / beeScale >= this.objectBelowY) // the floor for the bee absolute position is around -2
             this.y -= 0.05;
         
         else{
