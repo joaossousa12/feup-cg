@@ -16,7 +16,7 @@ export class MyFlower extends CGFobject {
         this.stemHigh = this.getRandomValue(3, 7, 'int');
         this.petalSize = this.getRandomValue(3-this.sphereRadius, (7-this.sphereRadius)/2);
         this.stemRadius = this.getRandomValue(0.1, this.sphereRadius-0.45);
-        this.petalColor = this.getRandomValue(1, 2, 'int');
+        this.petalColor = this.getRandomValue(1, 9, 'int');
         this.sphereColor = this.getRandomValue(1, 4, 'int');
         this.leafPetalSize = leafPetalSize;
         this.randomAngle = this.getRandomValue(Math.PI/6, Math.PI/3);

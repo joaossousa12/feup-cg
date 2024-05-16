@@ -32,7 +32,50 @@ export class MyReceptacle extends CGFobject {
             this.petalMaterial.setDiffuse(255 / 255, 20 / 255, 20 / 255, 1.0);
             this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
             this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==3){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(255 / 255, 192 / 255, 203 / 255, 1.0); 
+            this.petalMaterial.setDiffuse(255 / 255, 192 / 255, 203 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==4){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(128 / 255, 0, 128 / 255, 1.0); 
+            this.petalMaterial.setDiffuse(128 / 255, 0, 128 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==5){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(65 / 255, 105 / 255, 225 / 255, 1.0);
+            this.petalMaterial.setDiffuse(65 / 255, 105 / 255, 225 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==6){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(255 / 255, 215 / 255, 0 / 255, 1.0);
+            this.petalMaterial.setDiffuse(255 / 255, 215 / 255, 0 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==7){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(0 / 255, 191 / 255, 255 / 255, 1.0);
+            this.petalMaterial.setDiffuse(0 / 255, 191 / 255, 255 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==8){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(255 / 255, 69 / 255, 0 / 255, 1.0);
+            this.petalMaterial.setDiffuse(255 / 255, 69 / 255, 0 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
+        } else if(this.petalColor==9){
+            this.petalMaterial = new CGFappearance(this.scene);
+            this.petalMaterial.setAmbient(0 / 255, 238 / 255, 144 / 255, 1.0);
+            this.petalMaterial.setDiffuse(0 / 255, 238 / 255, 144 / 255, 1.0);
+            this.petalMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+            this.petalMaterial.setShininess(10.0);
         }
+
         this.petalMaterial.loadTexture('images/petalTexture.png');
 
         if(this.sphereColor==1){
