@@ -2,6 +2,7 @@ import { CGFappearance, CGFobject } from "../../lib/CGF.js";
 import { MyPetal } from "../components/MyPetal.js";
 import { MyStem } from "../primitives/MyStem.js";
 import { MyReceptacle } from "../components/MyReceptacle.js";
+import { MyStemFull } from "../components/MyStemFull.js";
 
 /**
  * MyFlower
@@ -15,13 +16,13 @@ export class MyFlower extends CGFobject {
         this.sphereRadius = this.getRandomValue(0.5, 0.7);
         this.stemHigh = this.getRandomValue(3, 7, 'int');
         this.petalSize = this.getRandomValue(3-this.sphereRadius, (7-this.sphereRadius)/2);
-        this.stemRadius = this.getRandomValue(0.1, this.sphereRadius-0.45);
+        this.stemRadius = this.getRandomValue(0.1, Math.min(this.sphereRadius-0.45, 0.15));
         this.petalColor = this.getRandomValue(1, 9, 'int');
         this.sphereColor = this.getRandomValue(1, 4, 'int');
         this.leafPetalSize = leafPetalSize;
         this.randomAngle = this.getRandomValue(Math.PI/6, Math.PI/3);
         this.receptacle = new MyReceptacle(this.scene, this.petalSize, this.petalNumber, this.sphereRadius, this.petalColor, this.sphereColor);
-        this.stem = new MyStem(this.scene, 16, 16, this.stemRadius, this.stemHigh);
+        this.stem = new MyStemFull(this.scene, 16, 16, this.stemRadius, this.stemHigh);
         this.leafstemHigh = stemRadius+0.3;
         this.leafstem = new MyStem(this.scene, 16, 16, 0.05, this.leafstemHigh);
         this.leafPetal = new MyPetal(this.scene, this.leafPetalSize);
@@ -64,40 +65,57 @@ export class MyFlower extends CGFobject {
         for(var i = 1; i < (this.stemHigh); i++){
             if((i%2) === 0){
                 this.scene.pushMatrix();
-                this.scene.translate(0,i,0);
-                this.stemDarkGreenMaterial.apply();
-                this.leafstem.display();
-                this.scene.popMatrix();
-            } else{
+
+                let help = 0;
+
+                if(this.stemHigh == 5)
+                    help = 0.25;
+                else if(this.stemHigh == 4)
+                    help = 0.8;
+                else if(this.stemHigh == 3)
+                    help = 1.7;
+
+                this.scene.translate(0,i,-0.51 - this.stemRadius + (i+ help) * 0.1);
+                
                 this.scene.pushMatrix();
-                this.scene.rotate(Math.PI/*random radius*/, 0, 1, 0);
-                this.scene.translate(0,i,0);
                 this.stemDarkGreenMaterial.apply();
                 this.leafstem.display();
                 this.scene.popMatrix();
-            }
-        }
-        
-        for(var i = 1; i < (this.stemHigh); i++){
-            if((i%2) === 0){
+
                 this.scene.pushMatrix();
                 this.scene.rotate(Math.PI / 2, 0, 0, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
-                this.scene.translate(i,this.leafstemHigh-0.05,0);
+                this.scene.translate(0,this.leafstemHigh-0.05,0);
                 this.petalLightGreenMaterial.apply();
                 this.leafPetal.display();
+                this.scene.popMatrix();
+
                 this.scene.popMatrix();
             } else{
                 this.scene.pushMatrix();
+                let help = 0;
+                if(this.stemHigh == 4)
+                    help = 0.1;
+
+                this.scene.translate(0,i, -0.51 + this.stemRadius + (i + help) * 0.06);
+                
+                this.scene.pushMatrix();
+                this.scene.rotate(Math.PI, 0, 1, 0);
+                this.stemDarkGreenMaterial.apply();
+                this.leafstem.display();
+                this.scene.popMatrix();
+
+                this.scene.pushMatrix();
                 this.scene.rotate(Math.PI / 2, 0, 0, 1);
                 this.scene.rotate(-Math.PI/2, 1, 0, 0);
-                this.scene.translate(i,this.leafstemHigh-0.05,0);
+                this.scene.translate(0,this.leafstemHigh-0.05,0);
                 this.petalLightGreenMaterial.apply();
                 this.leafPetal.display();
                 this.scene.popMatrix();
+
+                this.scene.popMatrix();
             }
         }
-
     }
 
     getRandomValue(min, max, returnType = 'float') {

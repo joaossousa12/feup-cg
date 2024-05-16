@@ -8,6 +8,7 @@ import { MyPlane } from "./primitives/MyPlane.js";
 import { MySphere } from "./primitives/MySphere.js";
 import { MyHive } from "./objects/MyHive.js";
 import { MyPollen } from "./objects/MyPollen.js";
+import { MyFlower } from "./objects/MyFlower.js";
 
 /**
  * MyScene
@@ -69,6 +70,7 @@ export class MyScene extends CGFscene {
     this.garden = new MyGarden(this, 5, 6);
     this.pollen = new MyPollen(this);
     this.hive = new MyHive(this);
+    this.flower = new MyFlower(this, 0.5, 1);
 
     //Objects connected to MyInterface
     this.displayAxis = false;
@@ -76,6 +78,7 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayRock = false;
     this.displayRockSet = false;
+    this.displayFlower = false;
     //this.displayBee = false; disabled this because for task 5 we don't really have a bee alone as an object it has the garden and pollen atleast
     this.displayGarden = true;
     this.displayTask5_2 = false;
@@ -161,6 +164,9 @@ export class MyScene extends CGFscene {
     if(this.displayGarden){
       this.garden.display();
     }
+
+    if(this.displayFlower)
+      this.flower.display();
 
     // if(this.displayBee){
     //   this.bee.display();
