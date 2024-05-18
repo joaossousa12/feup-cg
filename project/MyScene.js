@@ -40,7 +40,7 @@ export class MyScene extends CGFscene {
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.earthTexture = new CGFtexture(this, "images/earth.jpg");
-    this.panoramaTexture = new CGFtexture(this, "images/panorama4.jpg");
+    this.panoramaTexture = new CGFtexture(this, "images/garden.jpg");
     this.rockTexture = new CGFtexture(this, "images/rock.jpg");
 
     this.earthMaterial = new CGFappearance(this); // fixing the globe being kind of green by setting it to white
