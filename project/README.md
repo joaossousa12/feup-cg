@@ -8,11 +8,11 @@
 
 - For the 1.2 topic we didn't have much difficulties and we did all that was asked, we also implemented a fov slider and we provided two screenshots to better show the panorama with different fov settings.
 
-- For topic 2 we created the flower and then the garden with randomness and diversity. We applied some textures to the heart/leaves/stem/petals. And the only part we had some difficulties was the curving of the stem that we managed to resolve and then we had trouble putting the leafs in position with the stem curved but we resolved it too. In the end we also added more colors to the petals making the garden look more random and diverse. (there are 2 screenshots one with the flower individually and the other is the garden)
+- For topic 2 we created the flower and then the garden with randomness and diversity. We applied some textures to the heart/leaves/stem/petals. And the only part we had some difficulties was the curving of the stem that we managed to resolve and then we had trouble putting the leafs in position with the stem curved but we resolved it too. In the end we also added more colors to the petals making the garden look more random and diverse. (there are 2 screenshots one with the flower individually and the other is the garden) (while doing grass topic changed how the textures are loaded for each flower in the garden so they are only loaded once and not 60+ times affecting performance)
 
 - For the 3 topic we did all that was asked, but we had some difficulties those being when defining the rock there was a part that could be seen through and we corrected by applying a constant noise (deformation) to the first and last slice.
 
-- For the 4.1 topic we did all that was asked, the two challenging parts were to apply a bee pattern texture to the abdomen of the bee because we needed to change the way we did the abdomen so the poles of the sphere where on the horizontal and not on the vertical, and the other challenging part was to make the wings "semi-transparent" because we were using alpha values too high and when we lowered we achieved what we wanted.
+- For the 4.1 topic we did all that was asked, the two challenging parts were to apply a bee pattern texture to the abdomen of the bee because we needed to change the way we did the abdomen so the poles of the sphere where on the horizontal and not on the vertical, and the other challenging part was to make the wings "semi-transparent" because we were using alpha values too high and when we lowered we achieved what we wanted. (additionally while doing topic 6 we decided to add a stinger to the bee)
 
 - For the 4.3 topic we did all that was asked. We had some difficulties along the completion of this task such as when there is no input acceleration but there is speed and when we turned the bee it continued to head on the last orientation and not the new one but we could fix this and other minor problems.
 
@@ -20,14 +20,14 @@
 
 ### Topic 1.1
 ![Screenshot 1.1](screenshots/project-t06g09-1.1.png)
+
 ### Topic 1.2
 ![Screenshot 1.2](screenshots/project-t06g09-1.2.png)
+
 ### Topic 2
 ![Screenshot 2 Flower Individual](screenshots/project-t06g09-2.1.png)
 
 ![Screenshot 2 Garden](screenshots/project-t06g09-2.2.png)
-
-
 
 ### Topic 3
 ![Screenshot 3 Individual](screenshots/project-t06g09-3.1.png)

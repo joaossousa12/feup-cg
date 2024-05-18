@@ -26,24 +26,6 @@ export class MyFlower extends CGFobject {
         this.leafstemHigh = stemRadius+0.3;
         this.leafstem = new MyStem(this.scene, 16, 16, 0.05, this.leafstemHigh);
         this.leafPetal = new MyPetal(this.scene, this.leafPetalSize);
-        this.initMaterials();
-    }
-
-    initMaterials(){
-        this.petalLightGreenMaterial = new CGFappearance(this.scene);
-        this.petalLightGreenMaterial.setAmbient(144 / 255, 238 / 255, 144 / 255, 1.0); 
-        this.petalLightGreenMaterial.setDiffuse(144 / 255, 238 / 255, 144 / 255, 1.0);
-        this.petalLightGreenMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
-        this.petalLightGreenMaterial.setShininess(10.0);
-        this.petalLightGreenMaterial.loadTexture('images/leafTexture.jpeg');
-
-        this.stemDarkGreenMaterial = new CGFappearance(this.scene);
-        this.stemDarkGreenMaterial.setAmbient(0 / 255, 100 / 255, 0 / 255, 1.0); 
-        this.stemDarkGreenMaterial.setDiffuse(0 / 255, 100 / 255, 0 / 255, 1.0);
-        this.stemDarkGreenMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
-        this.stemDarkGreenMaterial.setShininess(10.0);
-        this.stemDarkGreenMaterial.loadTexture('images/stemTexture.png');
-        this.stemDarkGreenMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     display(){
@@ -58,7 +40,7 @@ export class MyFlower extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.stemDarkGreenMaterial.apply();
+        this.scene.stemDarkGreenMaterial.apply();
         this.stem.display();
         this.scene.popMatrix();
         
@@ -78,7 +60,7 @@ export class MyFlower extends CGFobject {
                 this.scene.translate(0,i,-0.51 - this.stemRadius + (i+ help) * 0.1);
                 
                 this.scene.pushMatrix();
-                this.stemDarkGreenMaterial.apply();
+                this.scene.stemDarkGreenMaterial.apply();
                 this.leafstem.display();
                 this.scene.popMatrix();
 
@@ -86,7 +68,7 @@ export class MyFlower extends CGFobject {
                 this.scene.rotate(Math.PI / 2, 0, 0, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.translate(0,this.leafstemHigh-0.05,0);
-                this.petalLightGreenMaterial.apply();
+                this.scene.petalLightGreenMaterial.apply();
                 this.leafPetal.display();
                 this.scene.popMatrix();
 
@@ -101,7 +83,7 @@ export class MyFlower extends CGFobject {
                 
                 this.scene.pushMatrix();
                 this.scene.rotate(Math.PI, 0, 1, 0);
-                this.stemDarkGreenMaterial.apply();
+                this.scene.stemDarkGreenMaterial.apply();
                 this.leafstem.display();
                 this.scene.popMatrix();
 
@@ -109,7 +91,7 @@ export class MyFlower extends CGFobject {
                 this.scene.rotate(Math.PI / 2, 0, 0, 1);
                 this.scene.rotate(-Math.PI/2, 1, 0, 0);
                 this.scene.translate(0,this.leafstemHigh-0.05,0);
-                this.petalLightGreenMaterial.apply();
+                this.scene.petalLightGreenMaterial.apply();
                 this.leafPetal.display();
                 this.scene.popMatrix();
 

@@ -230,6 +230,14 @@ export class MyBee extends CGFobject{
         this.mandible.display();
         this.scene.popMatrix();
 
+        this.scene.pushMatrix(); // bee stinger
+        this.scene.translate(0, -0.25, 0.6);
+        this.scene.rotate(Math.PI/8, 1, 0, 0);
+        this.scene.scale(0.05, 0.02, 0.5);
+        this.eyeMaterial.apply(); // using eye material for the stinger
+        this.thorax.display();
+        this.scene.popMatrix();
+
         if(this.pollenPicked){ // pollen has been picked by the bee
             this.scene.pushMatrix();
             this.scene.translate(0, -0.8, -0.35);
