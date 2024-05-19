@@ -33,7 +33,7 @@ export class MyGrassBlock extends CGFobject {
             for (let j = 0; j < blockSize; j++) {
                 const bladeX = i * bladeSpacing + this.getRandomValue(-bladeSpacing / 2, bladeSpacing / 2, 'float');
                 const bladeY = j * bladeSpacing + this.getRandomValue(-bladeSpacing / 2, bladeSpacing / 2, 'float');
-                const bladeHeight = this.getRandomValue(0.4, 1.5, 'float');
+                const bladeHeight = this.getRandomValue(1, 2, 'float');
                 const bladeWidth = this.getRandomValue(0.6, 2, 'float');
 
                 block.push({

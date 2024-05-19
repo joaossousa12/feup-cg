@@ -10,6 +10,7 @@ import { MyHive } from "./objects/MyHive.js";
 import { MyPollen } from "./objects/MyPollen.js";
 import { MyFlower } from "./objects/MyFlower.js";
 import { MyFlowerBed } from "./objects/MyFlowerBed.js";
+import { MySun } from "./objects/MySun.js";
 
 /**
  * MyScene
@@ -105,6 +106,17 @@ export class MyScene extends CGFscene {
     this.hive = new MyHive(this);
     this.flower = new MyFlower(this, 0.5, 1);
     this.flowerBed = new MyFlowerBed(this, 50);
+    this.sun = new MySun(this);
+
+    this.numberRocks = this.getRandomValue(5, 10, 'int');
+
+    this.randomX = [];
+    this.randomZ = [];
+
+    for (let i = 0; i < this.numberRocks; i++) {
+      this.randomX.push(this.getRandomValue(10, 45, 'int'));
+      this.randomZ.push(this.getRandomValue(10, 55, 'int'));
+    }
 
     //Objects connected to MyInterface
     this.displayAxis = false;
@@ -117,7 +129,8 @@ export class MyScene extends CGFscene {
     this.displayGarden = false;
     this.displayTask5_2 = false;
     this.displayTask5 = false;
-    this.displayFlowerBed = true;
+    this.displayFlowerBed = false;
+    this.displayFinalScene = true;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
     this.beeScale = 0.5;
@@ -231,12 +244,50 @@ export class MyScene extends CGFscene {
     if(this.displayFlowerBed)
       this.flowerBed.display();
 
+    if(this.displayFinalScene){
+      this.pushMatrix();
+
+      this.translate(0, 0, -10);
+
+      this.pushMatrix();
+      this.translate(0, 1, 0);
+      this.scale(4,4,4);
+      this.rockMaterial.apply();
+      this.rockSet.display();
+      this.popMatrix();
+
+      for (let i = 0; i < this.numberRocks; i++) {
+        this.pushMatrix();
+        this.translate(this.randomX[i], 0, this.randomZ[i]);
+        this.rockMaterial.apply();
+        this.rockSet.display();
+        this.popMatrix();
+      }
+
+      this.pushMatrix();
+      this.translate(0, 4.3, 0);
+      this.hive.display();
+      this.popMatrix();
+
+      this.popMatrix();
+
+      this.bee.display();
+
+      this.flowerBed.display();
+
+      this.pushMatrix();
+      this.translate(-20, 40, -35);
+      this.rotate(Math.PI/6, 0, 1, 0);
+      this.sun.display();
+      this.popMatrix();
+    }
+
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
     this.appearance.apply();
-    this.translate(25,-1,25);
-    this.scale(100,100,85);
+    this.translate(25,0,20);
+    this.scale(60,100,70);
     this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
     this.popMatrix();
@@ -305,4 +356,12 @@ export class MyScene extends CGFscene {
     if(keysPressed)
       console.log(text);
   }
+
+  getRandomValue(min, max, returnType = 'int') {
+    if (returnType === 'int') {
+        return Math.floor(Math.random() * (max - min + 1)) + min; // Returns an integer
+    } else {
+        return Math.random() * (max - min) + min; // Returns a float
+    }
+}
 }

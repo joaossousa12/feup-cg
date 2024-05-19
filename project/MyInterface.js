@@ -33,6 +33,7 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayTask5_2').name('Display Task5 Initial');
         this.gui.add(this.scene, 'displayTask5').name('Display Task5 Final');
         this.gui.add(this.scene, 'displayFlowerBed').name('Display Task6');
+        this.gui.add(this.scene, 'displayFinalScene').name('Display Final Scene');
         this.gui.add(this.scene.camera, 'fov', 0, 3).name('FOV');
         this.gui.add(this.scene, 'beeSpeed', 0.1, 3).name('Bee Speed');
         this.gui.add(this.scene, 'beeScale', 0.5, 3).name('Bee Scale');
