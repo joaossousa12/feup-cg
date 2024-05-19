@@ -22,7 +22,7 @@ export class MyBee extends CGFobject{
         this.mandible = new MyBeeLeg(this.scene); // the bee's mandibles are using the legs model
 
         if(gardenWithBee){
-            this.garden = new MyGarden(this.scene, 5, 6);
+            this.garden = new MyGarden(this.scene, 7, 7);
             this.pollen = new MyPollen(this.scene);
             this.pollenAngles = this.initPollenAngles();
             this.pollenPositions = [];
@@ -228,6 +228,14 @@ export class MyBee extends CGFobject{
         this.scene.scale(0.2, 0.2, 0.2);
         this.scene.scale(-1, 1, 1);
         this.mandible.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix(); // bee stinger
+        this.scene.translate(0, -0.25, 0.6);
+        this.scene.rotate(Math.PI/8, 1, 0, 0);
+        this.scene.scale(0.05, 0.02, 0.5);
+        this.eyeMaterial.apply(); // using eye material for the stinger
+        this.thorax.display();
         this.scene.popMatrix();
 
         if(this.pollenPicked){ // pollen has been picked by the bee

@@ -76,7 +76,7 @@ export class MyReceptacle extends CGFobject {
             this.petalMaterial.setShininess(10.0);
         }
 
-        this.petalMaterial.loadTexture('images/petalTexture.png');
+        this.petalMaterial.setTexture(this.scene.textures['petalTexture']);
 
         if(this.sphereColor==1){
             this.sphereMaterial = new CGFappearance(this.scene);
@@ -104,7 +104,7 @@ export class MyReceptacle extends CGFobject {
             this.sphereMaterial.setShininess(10.0);
         }
         
-        this.sphereMaterial.loadTexture('images/heartTexture.webp');
+        this.sphereMaterial.setTexture(this.scene.textures['heartTexture']);
         this.sphereMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 

@@ -1,4 +1,4 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyBee } from "./objects/MyBee.js";
 import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
@@ -9,6 +9,7 @@ import { MySphere } from "./primitives/MySphere.js";
 import { MyHive } from "./objects/MyHive.js";
 import { MyPollen } from "./objects/MyPollen.js";
 import { MyFlower } from "./objects/MyFlower.js";
+import { MyFlowerBed } from "./objects/MyFlowerBed.js";
 
 /**
  * MyScene
@@ -33,13 +34,13 @@ export class MyScene extends CGFscene {
     this.gl.depthFunc(this.gl.LEQUAL);
     
     this.enableTextures(true);
-    this.texture = new CGFtexture(this, "images/terrain.jpg");
+    this.texture = new CGFtexture(this, "images/grass.jpeg");
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.earthTexture = new CGFtexture(this, "images/earth.jpg");
-    this.panoramaTexture = new CGFtexture(this, "images/panorama4.jpg");
+    this.panoramaTexture = new CGFtexture(this, "images/garden.jpg");
     this.rockTexture = new CGFtexture(this, "images/rock.jpg");
 
     this.earthMaterial = new CGFappearance(this); // fixing the globe being kind of green by setting it to white
@@ -56,6 +57,38 @@ export class MyScene extends CGFscene {
     this.rockMaterial.setShininess(10);
     this.rockMaterial.setTexture(this.rockTexture);
 
+    this.pollenMaterial = new CGFappearance(this);
+    this.pollenMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+    this.pollenMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.pollenMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+    this.pollenMaterial.setShininess(10.0);
+    this.pollenMaterial.loadTexture('images/orange_rough_texture.jpeg');
+
+    this.petalLightGreenMaterial = new CGFappearance(this);
+    this.petalLightGreenMaterial.setAmbient(144 / 255, 238 / 255, 144 / 255, 1.0); 
+    this.petalLightGreenMaterial.setDiffuse(144 / 255, 238 / 255, 144 / 255, 1.0);
+    this.petalLightGreenMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+    this.petalLightGreenMaterial.setShininess(10.0);
+    this.petalLightGreenMaterial.loadTexture('images/leafTexture.jpeg');
+
+    this.stemDarkGreenMaterial = new CGFappearance(this);
+    this.stemDarkGreenMaterial.setAmbient(0 / 255, 100 / 255, 0 / 255, 1.0); 
+    this.stemDarkGreenMaterial.setDiffuse(0 / 255, 100 / 255, 0 / 255, 1.0);
+    this.stemDarkGreenMaterial.setSpecular(0.9, 0.9, 0.9, 1.0); 
+    this.stemDarkGreenMaterial.setShininess(10.0);
+    this.stemDarkGreenMaterial.loadTexture('images/stemTexture.png');
+    this.stemDarkGreenMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.grassMaterial = new CGFappearance(this); 
+    this.grassMaterial.setAmbient(0.0, 1.0, 0.0, 1.0);   
+    this.grassMaterial.setDiffuse(0.0, 1.0, 0.0, 1.0);   
+    this.grassMaterial.setSpecular(0.0, 1.0, 0.0, 1.0);  
+    this.grassMaterial.setShininess(10.0);
+
+    this.textures = [];
+    this.textures['petalTexture'] = new CGFtexture(this, 'images/petalTexture.png');
+    this.textures['heartTexture'] = new CGFtexture(this, 'images/heartTexture.webp');
+
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
@@ -71,6 +104,7 @@ export class MyScene extends CGFscene {
     this.pollen = new MyPollen(this);
     this.hive = new MyHive(this);
     this.flower = new MyFlower(this, 0.5, 1);
+    this.flowerBed = new MyFlowerBed(this, 50);
 
     //Objects connected to MyInterface
     this.displayAxis = false;
@@ -80,9 +114,10 @@ export class MyScene extends CGFscene {
     this.displayRockSet = false;
     this.displayFlower = false;
     //this.displayBee = false; disabled this because for task 5 we don't really have a bee alone as an object it has the garden and pollen atleast
-    this.displayGarden = true;
+    this.displayGarden = false;
     this.displayTask5_2 = false;
     this.displayTask5 = false;
+    this.displayFlowerBed = true;
     this.scaleFactor = 1;
     this.beeSpeed = 1;
     this.beeScale = 0.5;
@@ -192,14 +227,18 @@ export class MyScene extends CGFscene {
 
       this.bee.display();
     }
+
+    if(this.displayFlowerBed)
+      this.flowerBed.display();
+
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
     this.appearance.apply();
-    this.translate(0,-100,0);
-    this.scale(400,400,400);
+    this.translate(25,-1,25);
+    this.scale(100,100,85);
     this.rotate(-Math.PI/2.0,1,0,0);
-    //this.plane.display();
+    this.plane.display();
     this.popMatrix();
 
     // ---- END Primitive drawing section
