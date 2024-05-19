@@ -18,6 +18,8 @@
 
 - For topic 5 we did the pollen and a modern beehive shaped like a box. We had a problem with lighting but we fixed it changing the normals of the quad primitive. This topic asked to put the hive above the rock pile but since we have a singular rock on top we overlapped the hive with it making the hive stand on a base of 4 rocks to be more realistic. Additionally to the box shaped hive we added a cover and 2 handles to the hive. Made the bee able to descend either to the flower if any below (in a threshold of 3 units of distance on both X and Z) or to the floor (corresponds to y = -2 because of how the bee is designed). For the descending we had a problem because of the scaling of the bee but we managed to overcome it. We had troubles again with scaling of the polen but we solved it easily by adding it to the secondary display of the bee if it was picked up. The bee is able to take the pollen to the hive it is taking horizontal lines on x and z for now but maybe on additional developments (if we have time) will parabolic descend into the hive and flower. (there are 2 screenshots one for each subtopic)
 
+- For topic 6 we started by modeling the grass blade, first we used a set of already modelled triangles but later when implementing the shaders noticed this wouldnt work because the triangles didnt move the same way, destroying the shape of the grass blade. So we decided to define vertex by vertex creating the "triangular ribbons" and when using the shader we had success. One of the most challenging parts of this topic was managing performance, if we have a high number of blades per block the performance is going to run short so we decided to stick with 7 grass blades per block that are random height/width. We divided the grass into blocks and then displayed each block with a translation to increase performance but noticed we lost some of the randomness because all blocks will be the same but this proved to be crucial because otherwise the scene would be too "laggy". We also have the wind speed random. (if the scene is stuttering we would advise to decrease the number of blades per block in MyFlowerBed)
+
 ### Topic 1.1
 ![Screenshot 1.1](screenshots/project-t06g09-1.1.png)
 
@@ -44,3 +46,7 @@
 ![Screenshot 6.1](screenshots/project-t06g09-6.1.png)
 
 ![Screenshot 6.2 Final](screenshots/project-t06g09-6.2.png)
+
+### Topic 6
+
+![Screenshot 7](screenshots/project-t06g09-7.png)

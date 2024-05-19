@@ -22,7 +22,7 @@ export class MyBee extends CGFobject{
         this.mandible = new MyBeeLeg(this.scene); // the bee's mandibles are using the legs model
 
         if(gardenWithBee){
-            this.garden = new MyGarden(this.scene, 5, 6);
+            this.garden = new MyGarden(this.scene, 7, 7);
             this.pollen = new MyPollen(this.scene);
             this.pollenAngles = this.initPollenAngles();
             this.pollenPositions = [];
