@@ -26,6 +26,8 @@ export class MyScene extends CGFscene {
     this.initCameras();
     this.initLights();
 
+    this.startingTime = Date.now();
+
     //Background color
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -297,7 +299,8 @@ export class MyScene extends CGFscene {
 
   update(t){
     this.bee.update(t, this.beeScale);
-
+    var currentTime = (t - this.startingTime) / 1000.0;
+    this.panorama.update(currentTime);
     this.checkKeys();
   }
 
