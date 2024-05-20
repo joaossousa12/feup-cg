@@ -10,7 +10,7 @@ import { MyPollen } from "./MyPollen.js";
  * @param scene - Reference to MyScene object
  */
 export class MyBee extends CGFobject{
-    constructor(scene, x, y, z, gardenWithBee = false){
+    constructor(scene, x, y, z, gardenWithBee = false, parabolic = false){
         super(scene);
         this.abdomen = new MySphere(this.scene, 16, 8);
         this.thorax = new MySphere(this.scene, 16, 8);
@@ -31,6 +31,7 @@ export class MyBee extends CGFobject{
         }
         
         this.gardenWithBee = gardenWithBee;
+        this.parabolic = parabolic;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -54,6 +55,11 @@ export class MyBee extends CGFobject{
         this.moveToHive = false;
         this.counter = 0;
         this.counterz = 0;
+       
+        this.targetX = null;
+        this.targetZ = null;
+        this.angle = 0;
+        this.parabolicHelp= false;
 
         this.initMaterials();
     }
@@ -297,22 +303,22 @@ export class MyBee extends CGFobject{
         else 
             stemThreshold = 2.6;
         
-        if(this.moveToHive && this.z >= -10 + this.counterz){
+        if(this.moveToHive && this.z >= -10 + this.counterz && !this.parabolicHelp){
             this.orientation = Math.PI * 2;
             this.z -= 0.1;
         }
 
-        else if (this.moveToHive && this.z < -10 + this.counterz - 0.11){
+        else if (this.moveToHive && this.z < -10 + this.counterz - 0.11 && !this.parabolicHelp){
             this.orientation = Math.PI;
             this.z += 0.1;
         }
 
-        else if(this.moveToHive && this.x >= 3 - this.counter) {
+        else if(this.moveToHive && this.x >= 3 - this.counter && !this.parabolicHelp) {
             this.orientation = Math.PI / 2;
             this.x -= 0.1;
         }
 
-        else if (this.moveToHive && this.x < 3 - this.counter - 0.11){
+        else if (this.moveToHive && this.x < 3 - this.counter - 0.11 && !this.parabolicHelp){
             this.orientation = -1.5;
             this.x += 0.1;
         }
@@ -320,22 +326,49 @@ export class MyBee extends CGFobject{
         else if(this.moveToHive && this.y >= 8){
             this.orientation = Math.PI;
             this.y -= 0.05;
+
+            if(this.parabolic){
+                this.parabolicHelp = true;
+                this.angle += 0.05;
+
+                this.x = 3 - this.counter +  Math.cos(this.angle);
+                this.z = -10 + this.counterz +  Math.sin(this.angle);
+            }
         }
 
         else if(!this.descending && !this.stationary && !this.ascending && !this.moveToHive)
             this.y = this.help * this.initial.y + amplitude * Math.sin(frequencyHeight * t);   
 
-        else if(this.ascending && this.y <= this.initial.y)
+        else if (this.ascending && this.y <= this.initial.y) {
             this.y += 0.05;
+        
+            if(this.parabolic){
+                this.angle += 0.05;
 
-        else if(this.descending && this.y - stemThreshold >= this.objectBelowY) // the floor for the bee absolute position is around -2
+                this.x = this.targetX +  Math.cos(this.angle);
+                this.z = this.targetZ +  Math.sin(this.angle);
+            }
+        }
+        
+
+        else if(this.descending && this.y - stemThreshold >= this.objectBelowY){ // the floor for the bee absolute position is around -2
             this.y -= 0.05;
+
+            if(this.parabolic){
+                this.angle += 0.05;
+                let radius = 2 * (this.y - this.objectBelowY) / (10 - this.objectBelowY);
+
+                this.x = this.targetX + radius * Math.cos(this.angle);
+                this.z = this.targetZ + radius * Math.sin(this.angle);
+            }
+        }
         
         else{
             if(this.descending){
                 this.descending = false;
                 this.help = 0;
                 this.stationary = true;
+                this.angle = 0;
             }
 
             else if(this.ascending){
@@ -344,9 +377,11 @@ export class MyBee extends CGFobject{
                 this.stationary = false;
                 this.velocity = this.flagvelocity;
                 this.flagvelocity = 0;
+                this.angle = 0;
             }
 
             else if(this.moveToHive){
+                this.parabolicHelp = false;
                 this.moveToHive = false;
                 this.pollenPicked = false;
                 this.pollenInPosition[this.flowerIndex] = true;
@@ -435,8 +470,14 @@ export class MyBee extends CGFobject{
                 distanceZ = Math.abs(this.z - this.flowersZZ[i]);
 
                 if (distanceX <= 3 && distanceZ <= 3){
-                    this.x = this.flowersXX[i];
+                    if(this.parabolic)
+                        this.x = this.flowersXX[i] + 2; // start away from the flower to be able to do a parabolic movement to the "center" of the flower
+                    else
+                        this.x = this.flowersXX[i];
+
                     this.z = this.flowersZZ[i];
+                    this.targetX = this.flowersXX[i];
+                    this.targetZ = this.flowersZZ[i];
                     this.objectBelowY = this.flowersYY[i];
                     this.flowerIndex = i;
                     break;
@@ -462,6 +503,11 @@ export class MyBee extends CGFobject{
         this.objectBelowY = -2;
         this.flowerIndex = -1;
         this.moveToHive = false;
+        
+        this.targetX = null;
+        this.targetZ = null;
+        this.angle = 0;
+        this.parabolicHelp= false;
     }
 
     initPollenAngles(){

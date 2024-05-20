@@ -25,6 +25,8 @@
 
 - For topic 6 we started by modeling the grass blade, first we used a set of already modelled triangles but later when implementing the shaders noticed this wouldnt work because the triangles didnt move the same way, destroying the shape of the grass blade. So we decided to define vertex by vertex creating the "triangular ribbons" and when using the shader we had success. One of the most challenging parts of this topic was managing performance, if we have a high number of blades per block the performance is going to run short so we decided to stick with 7 grass blades per block that are random height/width. We divided the grass into blocks and then displayed each block with a translation to increase performance but noticed we lost some of the randomness because all blocks will be the same but this proved to be crucial because otherwise the scene would be too "laggy". We also have the wind speed random. (if the scene is stuttering we would advise to decrease the number of blades per block in MyFlowerBed)
 
+- For topic 7 we opted for the parabolic trajetory of the bee task, we implemented it when the bee descends or ascends from the flower. For the parabolic trajetory to the hive we had some difficulties mostly due to lack of time and we only implemented it when already near the hive on the descent and not in the whole movement. (due to this not being completely flawless we added a paramater to the constructor of the bee to specify if we want to use this parabola-shaped trajectory or per default the normal movement)
+
 - For the creativity and last part of the project we combined most of the objects on the scene, we created a sun and added a variable number of rock piles on the scene. Moved the light near to the sun to give the impression that the sun is the light source.
 
 ### Topic 1.1
@@ -57,3 +59,7 @@
 ### Topic 6
 
 ![Screenshot 7](screenshots/project-t06g09-7.png)
+
+### Topic 7
+
+![Screenshot 8](screenshots/project-t06g09-8.png)
