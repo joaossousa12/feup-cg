@@ -27,6 +27,7 @@ export class MyBee extends CGFobject{
             this.pollenAngles = this.initPollenAngles();
             this.pollenPositions = [];
             this.pollenInPosition = [];
+            this.pollenAlreadyPicked = [];
         }
         
         this.gardenWithBee = gardenWithBee;
@@ -99,6 +100,7 @@ export class MyBee extends CGFobject{
 
                     this.pollenPositions.push({x: x - 0.3, y: flowers[i].stemHigh + flowers[i].stemRadius * 2 + 0.5, z: z});
                     this.pollenInPosition.push(true);
+                    this.pollenAlreadyPicked.push(false);
                     this.notrepeat = true;
                 }
             }
@@ -408,8 +410,9 @@ export class MyBee extends CGFobject{
         if(!this.descending && this.stationary){
             this.ascending = true;
 
-            if(this.pollenInPosition[this.flowerIndex]){
+            if(this.pollenInPosition[this.flowerIndex] && !this.pollenAlreadyPicked[this.flowerIndex]){
                 this.pollenInPosition[this.flowerIndex] = false;
+                this.pollenAlreadyPicked[this.flowerIndex] = true;
                 this.pollenPicked = true;
             }
         } else {

@@ -138,7 +138,7 @@ export class MyScene extends CGFscene {
     this.setUpdatePeriod(1000/60);
   }
   initLights() {
-    this.lights[0].setPosition(15, 0, 5, 1);
+    this.lights[0].setPosition(-10, 10, -15, 1); // moved the light near to the sun to give the impression that the sun is the light source
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
