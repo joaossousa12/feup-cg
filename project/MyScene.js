@@ -104,9 +104,9 @@ export class MyScene extends CGFscene {
     this.garden = new MyGarden(this, 5, 6);
     this.pollen = new MyPollen(this);
     this.hive = new MyHive(this);
-    this.flower = new MyFlower(this, 0.5, 1);
+    this.flower = new MyFlower(this, this.getRandomValue(0.3,0.7, 'float'), this.getRandomValue(0.7, 1.2, 'float'));
     this.flowerBed = new MyFlowerBed(this, 50);
-    this.sun = new MySun(this);
+    this.sun = new MySun(this, this.getRandomValue(10, 12, 'int'));
 
     this.numberRocks = this.getRandomValue(5, 10, 'int');
 
@@ -358,10 +358,10 @@ export class MyScene extends CGFscene {
   }
 
   getRandomValue(min, max, returnType = 'int') {
-    if (returnType === 'int') {
-        return Math.floor(Math.random() * (max - min + 1)) + min; // Returns an integer
-    } else {
-        return Math.random() * (max - min) + min; // Returns a float
-    }
-}
+      if (returnType === 'int') {
+          return Math.floor(Math.random() * (max - min + 1)) + min; // Returns an integer
+      } else {
+          return Math.random() * (max - min) + min; // Returns a float
+      }
+  }
 }
