@@ -9,14 +9,14 @@ import { MySphere } from "../primitives/MySphere.js";
 export class MyPanorama extends CGFobject{
     constructor(scene, texture){
         super(scene);
-        this.texture = texture;
         this.sphere = new MySphere(this.scene, 32, 32, true, 200.0);
         this.material = new CGFappearance(this.scene);
         this.material.setEmission(1, 1, 1, 1);
         this.material.setTexture(texture);
-        this.textureCloud = new CGFtexture(this.scene, "images/cloud.jpg");
+        this.textureCloud = new CGFtexture(this.scene, "images/Cloud.jpg");
         this.cloudShader = new CGFshader(this.scene.gl, "shaders/cloud.vert", "shaders/cloud.frag");
-        this.cloudShader.setUniformsValues({sampler1: 1, sampler2: 2});
+        this.cloudShader.setUniformsValues({uSampler: 1, uSampler2: 2});
+        this.texture = texture;
     }
 
     display(){

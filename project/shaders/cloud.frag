@@ -2,16 +2,18 @@
 precision highp float;
 #endif
 
-varying vec2 textureCoord;
-uniform sampler2D sampler1;
-uniform sampler2D sampler2;
-uniform float currentTime;
+varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+uniform sampler2D uSampler2;
+uniform float time;
 
 void main() {
-    vec2 tiledCoords = mod(textureCoord + vec2(currentTime * 0.005, 0.0), 1.0);
-    vec4 cloudColor = texture2D(sampler2, tiledCoords);
-    vec4 panoramaColor = texture2D(sampler1, textureCoord);
+    vec2 tiledCoords = mod(vTextureCoord + vec2(time * 0.005, 0.0), 1.0);
+    vec4 cloudColor = texture2D(uSampler2, tiledCoords);
+    vec4 panoramaColor = texture2D(uSampler, vTextureCoord);
+
     float alpha = 0.5;
     vec4 finalColor = mix(panoramaColor, cloudColor, alpha);
+
     gl_FragColor = finalColor;
 }
