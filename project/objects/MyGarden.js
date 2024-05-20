@@ -49,10 +49,18 @@ export class MyGarden extends CGFobject {
 
         for (let i = 0; i < this.xSize; i++) {
             for (let j = 0; j < this.ySize; j++) {
-                let flower = new MyFlower(this.scene, 0.5, 1);
+                let flower = new MyFlower(this.scene, this.getRandomValue(0.3,0.7, 'float'), this.getRandomValue(0.7, 1.2, 'float'));
                 flowers.push(flower);
             }
         }
         return flowers;
+    }
+
+    getRandomValue(min, max, returnType = 'int') {
+        if (returnType === 'int') {
+            return Math.floor(Math.random() * (max - min + 1)) + min; // Returns an integer
+        } else {
+            return Math.random() * (max - min) + min; // Returns a float
+        }
     }
 }
