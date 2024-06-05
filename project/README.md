@@ -2,11 +2,6 @@
 
 ## Group T06G09
 
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| João Sousa       | 202106996 | up202106996@up.pt  |
-| João Martins     | 202108723 | up202108723@up.pt  |
-
 ## Project Notes
 
 - For the 1.1 topic we didn't have much difficulties and we did all that was asked and additionally we firstly defined a tag but now we changed it because we had a little bug on the outter loops.
